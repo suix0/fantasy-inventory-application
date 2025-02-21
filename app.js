@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
+const path = require("node:path");
+const indexRoute = require("./routes/indexRouter");
 
 require("dotenv").config();
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/", indexRoute);
 
 const PORT = process.env.PORT;
 

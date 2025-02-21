@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div>
+      <!-- Home Main Content RPG-Like Inventory -->
+      <main>
+        <header>
+          <ul class="flex gap-4">
+            <li class="list-none">
+              <a href="/" class="<%= !locals.currentCategory && 'bg-gray-600' %> no-underline text-black">
+                All
+              </a>
+            </li>
+            </li>
+            <% categories.forEach(category => { %>
+            <li class="list-none">
+              <a 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              href="/<%= category.category_name.toLowerCase() %>"><%= category.category_name %></a>
+            </li>
+            <% }) %>
+          </ul>
+        </header>
+
+        <div>
+          <table>
+            <caption>
+              Items
+            </caption>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Value</th>
+            </tr>
+            <% items.forEach(item => { %>
+             <tr>
+              <th><%= item.item_name %></th>
+              <th><%= item.category_name%></th>
+              <th><%= item.value %></th>
+             </tr>
+            <% }) %>
+
+          </table>
+        </div>
+      </main>
+
+      <!-- Header for navigating between Home, All Items, Categories -->
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li>Items</li>
+          <li>Categories</li>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>
