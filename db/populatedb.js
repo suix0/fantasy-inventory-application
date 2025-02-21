@@ -2,25 +2,25 @@ const { Client } = require("pg");
 
 const SQL = `
 CREATE TABLE category (
-  id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(255) NOT NULL
+  category_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  category_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE item (
-  id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  item_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   category_id INT,
-  name VARCHAR(255) NOT NULL,
+  item_name VARCHAR(255) NOT NULL,
   description VARCHAR(255),
   quantity INT,
   value INT NOT NULL,
   is_favorite BOOL NOT NULL,
-  FOREIGN KEY (category_id) REFERENCES category (id)
+  FOREIGN KEY (category_id) REFERENCES category (category_id)
 );
 
-INSERT INTO category (name)
+INSERT INTO category (category_name)
 VALUES ('Weapon'), ('Armor'), ('Potions');
 
-INSERT INTO item (category_id, name, description, quantity, value, is_favorite)
+INSERT INTO item (category_id, item_name, description, quantity, value, is_favorite)
 VALUES 
 (2, 'Chestplate of Truth', 'This armor will prevent lies', 3, 10000, true),
 (2, 'Shield of Justice', 'One with sufficient righteous levels will unlock hidder powers', 1, 15000, true),
@@ -30,6 +30,11 @@ VALUES
 (3, 'Potion of Healing', 'Restores 20hp', 10, 500, false),
 (3, 'Potion of Healing II', 'Restores 50hp', 15, 1000, true),
 (3, 'Potion of Valor', 'Increases damage', 6, 5000, false);
+`;
+
+const REVERT_SQL = `
+  DROP TABLE item;
+  DROP TABLE category;
 `;
 
 const main = async () => {
