@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div>
+      <!-- Home Main Content RPG-Like Inventory -->
+      <main>
+        <header>
+          <ul class="flex gap-4">
+            <% categories.forEach(category => { %>
+            <li class="list-none">
+              <a 
+              class="<%= locals.currentCategory && category.name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              href="/<%= category.name.toLowerCase() %>"><%= category.name %></a>
+            </li>
+            <% }) %>
+          </ul>
+        </header>
+
+        <div>
+          <table>
+            <caption>
+              All Items
+            </caption>
+          </table>
+        </div>
+      </main>
+
+      <!-- Header for navigating between Home, All Items, Categories -->
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li>Items</li>
+          <li>Categories</li>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>
