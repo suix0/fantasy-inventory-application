@@ -1,7 +1,9 @@
 const pool = require("./pool");
 
 exports.getItems = async () => {
-  const { rows } = await pool.query("SELECT * FROM item;");
+  const { rows } = await pool.query(
+    "SELECT * FROM item INNER JOIN category ON item.category_id = category.category_id;"
+  );
   console.log(rows);
   return rows;
 };
