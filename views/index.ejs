@@ -12,6 +12,12 @@
       <main>
         <header>
           <ul class="flex gap-4">
+            <li class="list-none">
+              <a href="/" class="<%= !locals.currentCategory && 'bg-gray-600' %> no-underline text-black">
+                All
+              </a>
+            </li>
+            </li>
             <% categories.forEach(category => { %>
             <li class="list-none">
               <a 
