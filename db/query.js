@@ -19,3 +19,12 @@ exports.getWeapons = async () => {
 `);
   return rows;
 };
+
+exports.getArmors = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM item
+    INNER JOIN category ON item.category_id = category.category_id
+    WHERE category.category_name = 'Armor';    
+    `);
+  return rows;
+};
