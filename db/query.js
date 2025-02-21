@@ -30,3 +30,12 @@ exports.getArmors = async () => {
     `);
   return rows;
 };
+
+exports.getPotions = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM item
+    INNER JOIN category ON item.category_id = category.category_id
+    WHERE category.category_name = 'Potions';    
+    `);
+  return rows;
+};

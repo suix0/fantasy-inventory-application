@@ -26,3 +26,13 @@ exports.getArmors = asyncHandler(async (req, res) => {
     currentCategory: "Armor",
   });
 });
+
+exports.getPotions = asyncHandler(async (req, res) => {
+  const items = await db.getPotions();
+  const categories = await db.getCategories();
+  res.render("index", {
+    items: items,
+    categories: categories,
+    currentCategory: "Potions",
+  });
+});
