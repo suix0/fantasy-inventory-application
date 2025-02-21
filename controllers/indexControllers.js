@@ -9,6 +9,7 @@ exports.getAllItems = asyncHandler(async (req, res) => {
 
 exports.getWeapons = asyncHandler(async (req, res) => {
   const items = await db.getWeapons();
+  console.log(items);
   const categories = await db.getCategories();
   res.render("index", {
     items: items,
