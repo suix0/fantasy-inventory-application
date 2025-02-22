@@ -9,9 +9,9 @@
   <body>
     <div>
       <!-- Home Main Content RPG-Like Inventory -->
-      <main>
+      <main class="flex flex-col w-[650px]">
         <header>
-          <ul class="flex gap-4">
+          <ul class="flex gap-4 m-0 p-0">
             <li class="list-none">
               <a href="/" class="<%= !locals.currentCategory && 'bg-gray-600' %> no-underline text-black">
                 All
@@ -29,35 +29,12 @@
         </header>
 
         <div>
-          <table>
-            <caption>
-              Items
-            </caption>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Value</th>
-            </tr>
-            <% items.forEach(item => { %>
-             <tr>
-              <th><%= item.item_name %></th>
-              <th><%= item.category_name%></th>
-              <th><%= item.value %></th>
-             </tr>
-            <% }) %>
-
-          </table>
+          <%- include('itemsTable') %>
         </div>
       </main>
 
       <!-- Header for navigating between Home, All Items, Categories -->
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/items">Items</a></li>
-          <li><a href="">Categories</a></li>
-        </ul>
-      </nav>
+      <%- include('nav') %>
     </div>
   </body>
 </html>

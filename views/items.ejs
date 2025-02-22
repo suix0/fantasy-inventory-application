@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Items</title>
+  <link href="./output.css" rel="stylesheet" />
+</head>
+<body>
+  <div>
+    <main class="flex flex-col w-[650px]">
+      <div class="flex justify-between">
+        <form action="/search" method="get">
+          <input type="search" name="search" id="search">
+          <button type="submit">Search</button>
+        </form>
+        <button>Sort by</button>
+      </div>
+      <%- include('itemsTable') %>
+    </main>
+    <%- include('nav') %>
+  </div>
+</body>
+</html>

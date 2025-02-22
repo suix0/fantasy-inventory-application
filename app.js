@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("node:path");
 const indexRouter = require("./routes/indexRouter");
-const itemsRouter = require("./itemsRouter");
+const itemsRouter = require("./routes/itemsRouter");
 require("dotenv").config();
 
 app.set("view engine", "ejs");

@@ -1,0 +1,19 @@
+<div class="w-full">
+  <table class="w-full">
+    <caption>
+      Items
+    </caption>
+    <tr>
+      <th class="text-left pb-1.5">Name</th>
+      <th class="text-right pb-1.5">Type</th>
+      <th class="text-right pb-1.5">Value</th>
+    </tr>
+    <% items.forEach(item => { %>
+     <tr>
+      <th class="text-left pb-1.5"><%= item.item_name %></th>
+      <th class="text-right pb-1.5"><%= item.category_name%></th>
+      <th class="text-right pb-1.5"><%= item.value %></th>
+     </tr>
+    <% }) %>
+  </table>
+</div>
