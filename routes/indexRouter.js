@@ -1,11 +1,11 @@
 const indexController = require("../controllers/indexControllers");
 const { Router } = require("express");
 
-const indexRoute = Router();
+const indexRouter = Router();
 
-indexRoute.get("/", indexController.getAllItems);
-indexRoute.get("/weapon", indexController.getWeapons);
-indexRoute.get("/armor", indexController.getArmors);
-indexRoute.get("/potions", indexController.getPotions);
+indexRouter.get("/", indexController.getAllItems);
+indexRouter.get("/weapon", indexController.getWeapons);
+indexRouter.get("/armor", indexController.getArmors);
+indexRouter.get("/potions", indexController.getPotions);
 
-module.exports = indexRoute;
+module.exports = indexRouter;
