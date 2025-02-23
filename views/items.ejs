@@ -5,11 +5,11 @@
   <div>
     <main class="flex flex-col w-[650px]">
       <div class="flex justify-between">
-        <form action="/items/search" method="get">
+        <form action="/items/search" method="get" class="flex gap-1">
           <input type="search" name="search" id="search">
           <button type="submit">Search</button>
+          <%- include('errors/searchError') %>
         </form>
-        <%- include('errors/searchError') %>
         <div>
           <a href="/items/new">Add Item</a>
           <a>Sort by</a>
