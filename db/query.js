@@ -1,3 +1,4 @@
+const { param } = require("express-validator");
 const pool = require("./pool");
 
 exports.getItems = async () => {
@@ -73,4 +74,20 @@ exports.getPotions = async () => {
     WHERE category.category_name = 'Potions';    
     `);
   return rows;
+};
+
+exports.putNewItem = async (newItem) => {
+  const query = `
+  INSERT INTO item (item_name, description, category_id, quantity, value, is_favorite)
+  VALUES ($1, $2, $3, $4, $5, $6);
+  `;
+  const paramArr = [
+    newItem.itemName,
+    newItem.itemDesc,
+    Number(newItem.categories),
+    Number(newItem.itemQuantity),
+    Number(newItem.itemValue),
+    Boolean(newItem.isFavorite),
+  ];
+  await pool.query(query, paramArr);
 };

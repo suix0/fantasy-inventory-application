@@ -20,7 +20,7 @@
     <%- include('partials/nav') %>
   </div>
   <dialog>
-    <form action="/new" method="post">
+    <form action="/items/new" method="post">
       <h1>New Item</h1>
       <div>
         <label for="itemName">Name</label>
@@ -28,14 +28,14 @@
       </div>
       <div>
         <label for="itemDesc">Short Description</label>
-        <textarea name="itemDesc" id="itemDesc"></textarea>
+        <textarea name="itemDesc" id="itemDesc" class="resize-none"></textarea>
       </div>
       <div>
         <label for="categories">Category</label>
-        <select name="categories" id="">
+        <select name="categories" id="categories">
           <% if (locals.categories) { %>
            <% categories.forEach(category => { %>
-            <option value="<%= category.category_name %>"><%= category.category_name %></option>
+            <option value="<%= category.category_id %>"><%= category.category_name %></option>
            <% }) %>
           <% } %>
         </select>
@@ -49,13 +49,16 @@
         <input type="number" name="itemValue" id="itemValue">
       </div>
       <div>
-        <label for="isFavorite">Make it one of your favorites?</label>
-        <input type="radio" name="isFavorite" id="isFavorite" value="t">
-        <input type="radio" name="isFavorite" id="isFavorite" value="f">
+        <p>Make it one of your favorites</p>
+        <input type="radio" name="isFavorite" id="true" value="true">
+        <label for="true">Yea</label>
+
+        <input type="radio" name="isFavorite" id="false" value="false">
+        <label for="false">Nay</label>
       </div>
       <div>
         <button onclick="closeModal(event)">Close</button>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   </dialog>

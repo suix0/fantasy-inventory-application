@@ -57,3 +57,10 @@ exports.getNewItem = asyncHandler(async (req, res) => {
   const categories = await db.getCategories();
   res.render("items", { items: items, categories: categories, openForm: true });
 });
+
+exports.postNewItem = asyncHandler(async (req, res) => {
+  const newItem = req.body;
+  console.log(newItem);
+  await db.putNewItem(newItem);
+  res.redirect("/items");
+});

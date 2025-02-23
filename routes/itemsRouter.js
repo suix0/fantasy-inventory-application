@@ -5,6 +5,6 @@ const itemsRouter = Router();
 itemsRouter.get("/", itemsController.getAllItems);
 itemsRouter.get("/search", itemsController.getItem);
 itemsRouter.get("/new", itemsController.getNewItem);
-// itemsRouter.post("/new", postNewItem);
+itemsRouter.post("/new", itemsController.postNewItem);
 
 module.exports = itemsRouter;
