@@ -9,7 +9,7 @@
       <th class="text-right pb-1.5">Value</th>
     </tr>
     <% items.forEach(item => { %>
-     <tr>
+     <tr id="<%= item.item_id %>">
       <th class="text-left pb-1.5"><%= item.item_name %></th>
       <th class="text-right pb-1.5"><%= item.category_name%></th>
       <th class="text-right pb-1.5"><%= item.value %></th>

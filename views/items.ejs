@@ -9,7 +9,7 @@
           <input type="search" name="search" id="search">
           <button type="submit">Search</button>
         </form>
-        <%- include('errors/error') %>
+        <%- include('errors/searchError') %>
         <div>
           <a href="/items/new">Add Item</a>
           <a>Sort by</a>
@@ -24,11 +24,11 @@
       <h1>New Item</h1>
       <div>
         <label for="itemName">Name</label>
-        <input type="text" id="itemName" name="itemName">     
+        <input type="text" id="itemName" name="itemName" type="submit">     
       </div>
       <div>
         <label for="itemDesc">Short Description</label>
-        <textarea name="itemDesc" id="itemDesc" class="resize-none"></textarea>
+        <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit"></textarea>
       </div>
       <div>
         <label for="categories">Category</label>
@@ -42,24 +42,25 @@
       </div>
       <div>
         <label for="itemQuantity">Quantity</label>
-        <input type="number" name="itemQuantity" id="itemQuantity">
+        <input type="number" name="itemQuantity" id="itemQuantity" type="submit">
       </div>
       <div>
         <label for="itemValue">Value</label>
-        <input type="number" name="itemValue" id="itemValue">
+        <input type="number" name="itemValue" id="itemValue" type="submit">
       </div>
       <div>
         <p>Make it one of your favorites</p>
-        <input type="radio" name="isFavorite" id="true" value="true">
+        <input type="radio" name="isFavorite" id="true" value="true" type="submit">
         <label for="true">Yea</label>
 
-        <input type="radio" name="isFavorite" id="false" value="false">
+        <input type="radio" name="isFavorite" id="false" value="false" type="submit">
         <label for="false">Nay</label>
       </div>
       <div>
-        <button onclick="closeModal(event)">Close</button>
+        <a href="/items">Close</a>
         <button type="submit">Submit</button>
       </div>
+      <%- include('errors/newItemError') %>
     </form>
   </dialog>
   <script>

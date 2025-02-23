@@ -1,6 +1,6 @@
 const db = require("../db/query");
 const asyncHandler = require("express-async-handler");
-const { query, validationResult } = require("express-validator");
+const { query, body, validationResult } = require("express-validator");
 const { toTitleCase } = require("../utils/strings");
 
 const queryValidation = [
@@ -10,6 +10,23 @@ const queryValidation = [
     .notEmpty()
     .withMessage("Search can't be empty")
     .toLowerCase(),
+];
+
+const itemValidation = [
+  body("itemName")
+    .trim()
+    .notEmpty()
+    .withMessage("Item name can't be empty.")
+    .isLength({ min: 1, max: 18 })
+    .withMessage("Item name must be between 1 and 19 characters."),
+  body("itemDesc")
+    .trim()
+    .isLength({ min: 1, max: 30 })
+    .withMessage("Item description must be between 1 and 30 characters."),
+  body("itemValue").notEmpty().withMessage("Item value can't be empty."),
+  body("isFavorite")
+    .notEmpty()
+    .withMessage("You must decide whether it is a favorite item or not."),
 ];
 
 exports.getAllItems = asyncHandler(async (req, res) => {
@@ -26,7 +43,7 @@ exports.getItem = [
       const items = await db.getItems();
       return res.render("items", {
         items: items,
-        errors: errors.array(),
+        searchError: errors.array(),
         title: "Items",
       });
     }
@@ -58,9 +75,24 @@ exports.getNewItem = asyncHandler(async (req, res) => {
   res.render("items", { items: items, categories: categories, openForm: true });
 });
 
-exports.postNewItem = asyncHandler(async (req, res) => {
-  const newItem = req.body;
-  console.log(newItem);
-  await db.putNewItem(newItem);
-  res.redirect("/items");
-});
+exports.postNewItem = [
+  itemValidation,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const items = await db.getItems();
+      const categories = await db.getCategories();
+      res.render("items", {
+        items: items,
+        categories: categories,
+        openForm: true,
+        newItemError: errors.array(),
+      });
+      return;
+    }
+    const newItem = req.body;
+    console.log(newItem);
+    await db.putNewItem(newItem);
+    res.redirect("/items");
+  }),
+];
