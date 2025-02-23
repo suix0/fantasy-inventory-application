@@ -11,7 +11,7 @@
         </form>
         <%- include('errors/error') %>
         <div>
-          <a href="/new">Add Item</a>
+          <a href="/items/new">Add Item</a>
           <a>Sort by</a>
         </div>
       </div>
@@ -53,7 +53,26 @@
         <input type="radio" name="isFavorite" id="isFavorite" value="t">
         <input type="radio" name="isFavorite" id="isFavorite" value="f">
       </div>
+      <div>
+        <button onclick="closeModal(event)">Close</button>
+        <button>Submit</button>
+      </div>
     </form>
   </dialog>
+  <script>
+    // Check if user requested to open form
+    const openForm = Boolean("<%= locals.openForm %>");
+    const dialog = document.querySelector("dialog");
+
+    // Open the dialog
+    if (openForm) {
+      dialog.showModal();
+    }
+
+    const closeModal = (event) => {
+      event.preventDefault()
+      dialog.close();
+    }
+  </script>
 </body>
 </html>

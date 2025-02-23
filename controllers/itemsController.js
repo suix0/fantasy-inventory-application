@@ -51,3 +51,9 @@ exports.getItem = [
     }
   }),
 ];
+
+exports.getNewItem = asyncHandler(async (req, res) => {
+  const items = await db.getItems();
+  const categories = await db.getCategories();
+  res.render("items", { items: items, categories: categories, openForm: true });
+});
