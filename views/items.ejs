@@ -11,13 +11,49 @@
         </form>
         <%- include('errors/error') %>
         <div>
-          <button>Add Item</button>
-          <button>Sort by</button>
+          <a href="/new">Add Item</a>
+          <a>Sort by</a>
         </div>
       </div>
       <%- include('itemsTable') %>
     </main>
     <%- include('partials/nav') %>
   </div>
+  <dialog>
+    <form action="/new" method="post">
+      <h1>New Item</h1>
+      <div>
+        <label for="itemName">Name</label>
+        <input type="text" id="itemName" name="itemName">     
+      </div>
+      <div>
+        <label for="itemDesc">Short Description</label>
+        <textarea name="itemDesc" id="itemDesc"></textarea>
+      </div>
+      <div>
+        <label for="categories">Category</label>
+        <select name="categories" id="">
+          <% if (locals.categories) { %>
+           <% categories.forEach(category => { %>
+            <option value="<%= category.category_name %>"><%= category.category_name %></option>
+           <% }) %>
+          <% } %>
+        </select>
+      </div>
+      <div>
+        <label for="itemQuantity">Quantity</label>
+        <input type="number" name="itemQuantity" id="itemQuantity">
+      </div>
+      <div>
+        <label for="itemValue">Value</label>
+        <input type="number" name="itemValue" id="itemValue">
+      </div>
+      <div>
+        <label for="isFavorite">Make it one of your favorites?</label>
+        <input type="radio" name="isFavorite" id="isFavorite" value="t">
+        <input type="radio" name="isFavorite" id="isFavorite" value="f">
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>
