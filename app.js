@@ -5,11 +5,10 @@ const indexRouter = require("./routes/indexRouter");
 const itemsRouter = require("./routes/itemsRouter");
 require("dotenv").config();
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 app.use("/", indexRouter);
 app.use("/items", itemsRouter);

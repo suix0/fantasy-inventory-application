@@ -14,7 +14,7 @@ const queryValidation = [
 
 exports.getAllItems = asyncHandler(async (req, res) => {
   const items = await db.getItems();
-  res.render("items", { items: items });
+  res.render("items", { items: items, title: "Items" });
 });
 
 exports.getItem = [
@@ -24,7 +24,11 @@ exports.getItem = [
     if (!errors.isEmpty()) {
       console.log("not empty");
       const items = await db.getItems();
-      return res.render("items", { items: items, errors: errors.array() });
+      return res.render("items", {
+        items: items,
+        errors: errors.array(),
+        title: "Items",
+      });
     }
     const querySearch = req.query.search;
 
@@ -38,12 +42,12 @@ exports.getItem = [
       // Query each data that contains all strings (e.g. [sword, axe]
       // will return rows that contain sword or axe
       const searchResults = await db.getItem(newQuerySearch);
-      return res.render("items", { items: searchResults });
+      return res.render("items", { items: searchResults, title: "Items" });
 
       // Case for individual string query
     } else {
       const searchResult = await db.getItem(toTitleCase(querySearch));
-      res.render("items", { items: searchResult });
+      res.render("items", { items: searchResult, title: "Items" });
     }
   }),
 ];

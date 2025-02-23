@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Items</title>
-  <link href="output.css" rel="stylesheet" />
-</head>
+<%- include('partials/head') %>
 <body>
   <div>
     <main class="flex flex-col w-[650px]">
@@ -22,7 +17,7 @@
       </div>
       <%- include('itemsTable') %>
     </main>
-    <%- include('nav') %>
+    <%- include('partials/nav') %>
   </div>
 </body>
 </html>
