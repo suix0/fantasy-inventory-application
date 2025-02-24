@@ -44,7 +44,7 @@
 <% } %>
 
 <% if (locals.openEditForm) { %>
-  <form action="/items/new" method="post">
+  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post">
     <h1>Edit <%= itemToEdit.item_name %></h1>
     <div>
       <label for="itemName">Name</label>
@@ -98,6 +98,6 @@
       <a href="/items">Close</a>
       <button type="submit">Submit</button>
     </div>
-    <%- include('errors/newItemError') %>
+    <%- include('errors/editItemError') %>
   </form>
 <% } %>

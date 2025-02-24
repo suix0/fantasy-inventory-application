@@ -1,0 +1,7 @@
+<ul class="p-0"></ul>
+  <% if (locals.editItemErrors) { %>
+    <% editItemErrors.forEach(error => { %>
+      <li class="list-none text-red-500"><%= error.msg %></li>
+      <% }) %>
+   <% } %>
+</ul>

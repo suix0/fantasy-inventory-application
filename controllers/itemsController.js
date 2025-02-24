@@ -17,12 +17,12 @@ const itemValidation = [
     .trim()
     .notEmpty()
     .withMessage("Item name can't be empty.")
-    .isLength({ min: 1, max: 18 })
-    .withMessage("Item name must be between 1 and 19 characters."),
+    .isLength({ min: 1, max: 25 })
+    .withMessage("Item name must be between 1 and 25 characters."),
   body("itemDesc")
     .trim()
-    .isLength({ min: 1, max: 30 })
-    .withMessage("Item description must be between 1 and 30 characters."),
+    .isLength({ max: 35 })
+    .withMessage("Item description can only have up to 35 characters."),
   body("itemValue").notEmpty().withMessage("Item value can't be empty."),
   body("isFavorite")
     .notEmpty()
@@ -110,7 +110,7 @@ exports.postNewItem = [
       return;
     }
     const newItem = req.body;
-    await db.putNewItem(newItem);
+    await db.postNewItem(newItem);
     res.redirect("/items");
   }),
 ];
@@ -123,7 +123,6 @@ exports.getEditItem = asyncHandler(async (req, res) => {
 
   const itemId = Number(req.params.itemId);
   const itemToEdit = await db.getItem(itemId);
-  console.log(itemToEdit);
   res.render("items", {
     items: items,
     categories: categories,
@@ -132,6 +131,32 @@ exports.getEditItem = asyncHandler(async (req, res) => {
     isItems: true,
   });
 });
+
+// POST UPDATE
+exports.postEditItem = [
+  itemValidation,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    const itemId = Number(req.params.itemId);
+    if (!errors.isEmpty()) {
+      const items = await db.getItems();
+      const categories = await db.getCategories();
+      const itemToEdit = await db.getItem(itemId);
+      res.render("items", {
+        items: items,
+        categories: categories,
+        itemToEdit: itemToEdit[0],
+        openEditForm: true,
+        isItems: true,
+        editItemErrors: errors.array(),
+      });
+      return;
+    }
+    const newItemData = req.body;
+    await db.postEditItem(newItemData, itemId);
+    res.redirect("/items");
+  }),
+];
 
 // GET DELETE: Render a warning dialog with item name
 // for confirmation

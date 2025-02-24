@@ -89,7 +89,7 @@ exports.getPotions = async () => {
   return rows;
 };
 
-exports.putNewItem = async (newItem) => {
+exports.postNewItem = async (newItem) => {
   const query = `
   INSERT INTO item (item_name, description, category_id, quantity, value, is_favorite)
   VALUES ($1, $2, $3, $4, $5, $6);
@@ -101,6 +101,24 @@ exports.putNewItem = async (newItem) => {
     Number(newItem.itemQuantity),
     Number(newItem.itemValue),
     Boolean(newItem.isFavorite),
+  ];
+  await pool.query(query, paramArr);
+};
+
+exports.postEditItem = async (editItem, itemId) => {
+  const query = `
+  UPDATE item
+  SET item_name = $1, description = $2, category_id = $3, quantity = $4, value = $5, is_favorite = $6
+  WHERE item.item_id = $7;
+  `;
+  const paramArr = [
+    editItem.itemName,
+    editItem.itemDesc,
+    Number(editItem.categories),
+    Number(editItem.itemQuantity),
+    Number(editItem.itemValue),
+    Boolean(editItem.isFavorite),
+    itemId,
   ];
   await pool.query(query, paramArr);
 };
