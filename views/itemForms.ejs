@@ -80,14 +80,14 @@
     </div>
     <div>
       <p>Make it one of your favorites</p>
-      <% if (itemToEdit.isFavorite === true) { %>
+      <% if (itemToEdit.is_favorite === true) { %>
         <input type="radio" name="isFavorite" id="true" value="true" type="submit" checked>
       <% } else { %>
         <input type="radio" name="isFavorite" id="true" value="true" type="submit">
       <% } %>
       <label for="true">Yea</label>
 
-      <% if (itemToEdit.isFavorite === false) { %>
+      <% if (itemToEdit.is_favorite === false) { %>
         <input type="radio" name="isFavorite" id="false" value="false" type="submit" checked>
       <% } else {%>
         <input type="radio" name="isFavorite" id="false" value="false" type="submit">

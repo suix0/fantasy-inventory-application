@@ -123,6 +123,7 @@ exports.getEditItem = asyncHandler(async (req, res) => {
 
   const itemId = Number(req.params.itemId);
   const itemToEdit = await db.getItem(itemId);
+  console.log(itemToEdit);
   res.render("items", {
     items: items,
     categories: categories,
