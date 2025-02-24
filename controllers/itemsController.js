@@ -31,7 +31,7 @@ const itemValidation = [
 
 exports.getAllItems = asyncHandler(async (req, res) => {
   const items = await db.getItems();
-  res.render("items", { items: items, title: "Items" });
+  res.render("items", { items: items, title: "Items", isItems: true });
 });
 
 exports.getItem = [
@@ -45,6 +45,7 @@ exports.getItem = [
         items: items,
         searchError: errors.array(),
         title: "Items",
+        isItems: true,
       });
     }
     const querySearch = req.query.search;
@@ -59,12 +60,20 @@ exports.getItem = [
       // Query each data that contains all strings (e.g. [sword, axe]
       // will return rows that contain sword or axe
       const searchResults = await db.getItem(newQuerySearch);
-      return res.render("items", { items: searchResults, title: "Items" });
+      return res.render("items", {
+        items: searchResults,
+        title: "Items",
+        isItems: true,
+      });
 
       // Case for individual string query
     } else {
       const searchResult = await db.getItem(toTitleCase(querySearch));
-      res.render("items", { items: searchResult, title: "Items" });
+      res.render("items", {
+        items: searchResult,
+        title: "Items",
+        isItems: true,
+      });
     }
   }),
 ];
@@ -72,7 +81,12 @@ exports.getItem = [
 exports.getNewItem = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   const categories = await db.getCategories();
-  res.render("items", { items: items, categories: categories, openForm: true });
+  res.render("items", {
+    items: items,
+    categories: categories,
+    openForm: true,
+    isItems: true,
+  });
 });
 
 exports.postNewItem = [
@@ -87,6 +101,7 @@ exports.postNewItem = [
         categories: categories,
         openForm: true,
         newItemError: errors.array(),
+        isItems: true,
       });
       return;
     }

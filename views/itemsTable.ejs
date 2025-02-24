@@ -7,12 +7,21 @@
       <th class="text-left pb-1.5">Name</th>
       <th class="text-right pb-1.5">Type</th>
       <th class="text-right pb-1.5">Value</th>
+      <% if (locals.isItems) { %> 
+       <th class="text-right pb-1.5">Actions</th>
+      <% } %>
     </tr>
     <% items.forEach(item => { %>
      <tr id="<%= item.item_id %>">
       <th class="text-left pb-1.5"><%= item.item_name %></th>
       <th class="text-right pb-1.5"><%= item.category_name%></th>
       <th class="text-right pb-1.5"><%= item.value %></th>
+      <% if (locals.isItems) { %>
+       <th class="text-right pb-1.5">
+        <a href="">Edit</a>
+        <a href="">Delete</a>
+       </th>
+      <% } %>
      </tr>
     <% }) %>
   </table>
