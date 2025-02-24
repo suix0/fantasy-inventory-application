@@ -18,8 +18,8 @@
       <th class="text-right pb-1.5"><%= item.value %></th>
       <% if (locals.isItems) { %>
        <th class="text-right pb-1.5">
-        <a href="">Edit</a>
-        <a href="">Delete</a>
+        <a href="/items/edit/<%= item.item_id %>">Edit</a>
+        <a href="/items/delete/<%= item.item_id %>">Delete</a>
        </th>
       <% } %>
      </tr>

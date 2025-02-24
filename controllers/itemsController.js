@@ -29,17 +29,18 @@ const itemValidation = [
     .withMessage("You must decide whether it is a favorite item or not."),
 ];
 
+// GET READ: Get all items from db and render items
 exports.getAllItems = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   res.render("items", { items: items, title: "Items", isItems: true });
 });
 
+// GET SEARCH: Render an item that matches every word in search field
 exports.getItem = [
   queryValidation,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("not empty");
       const items = await db.getItems();
       return res.render("items", {
         items: items,
@@ -78,6 +79,8 @@ exports.getItem = [
   }),
 ];
 
+// GET CREATE: Render the items view with the dialog containing
+// the form open to allow entering new message
 exports.getNewItem = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   const categories = await db.getCategories();
@@ -89,6 +92,7 @@ exports.getNewItem = asyncHandler(async (req, res) => {
   });
 });
 
+// POST CREATE: Validate and post in db new message
 exports.postNewItem = [
   itemValidation,
   asyncHandler(async (req, res) => {
@@ -106,8 +110,19 @@ exports.postNewItem = [
       return;
     }
     const newItem = req.body;
-    console.log(newItem);
     await db.putNewItem(newItem);
     res.redirect("/items");
   }),
 ];
+
+// GET UPDATE: Render the items page and open a dialog
+// form for updating a message
+exports.getEditItem = asyncHandler(async (req, res) => {
+  res.send(req.params);
+});
+
+// GET DELETE: Render a warning dialog with item name
+// for confirmation
+exports.getDeleteItem = asyncHandler(async (req, res) => {
+  res.send(req.params);
+});
