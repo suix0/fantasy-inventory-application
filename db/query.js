@@ -8,7 +8,8 @@ exports.getItems = async () => {
   return rows;
 };
 
-exports.getItem = async (name) => {
+// Search
+exports.getItemSearch = async (name) => {
   if (Array.isArray(name)) {
     let likeQuery = "";
     let parameters = [];
@@ -42,6 +43,18 @@ exports.getItem = async (name) => {
     );
     return rows;
   }
+};
+
+exports.getItem = async (messageId) => {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM item 
+    INNER JOIN category ON item.category_id = category.category_id
+    WHERE item.item_id = $1;
+    `,
+    [messageId]
+  );
+  return rows;
 };
 
 exports.getCategories = async () => {

@@ -60,7 +60,7 @@ exports.getItem = [
 
       // Query each data that contains all strings (e.g. [sword, axe]
       // will return rows that contain sword or axe
-      const searchResults = await db.getItem(newQuerySearch);
+      const searchResults = await db.getItemSearch(newQuerySearch);
       return res.render("items", {
         items: searchResults,
         title: "Items",
@@ -69,7 +69,7 @@ exports.getItem = [
 
       // Case for individual string query
     } else {
-      const searchResult = await db.getItem(toTitleCase(querySearch));
+      const searchResult = await db.getItemSearch(toTitleCase(querySearch));
       res.render("items", {
         items: searchResult,
         title: "Items",
@@ -87,7 +87,7 @@ exports.getNewItem = asyncHandler(async (req, res) => {
   res.render("items", {
     items: items,
     categories: categories,
-    openForm: true,
+    openNewForm: true,
     isItems: true,
   });
 });
@@ -103,7 +103,7 @@ exports.postNewItem = [
       res.render("items", {
         items: items,
         categories: categories,
-        openForm: true,
+        openNewForm: true,
         newItemError: errors.array(),
         isItems: true,
       });
@@ -118,7 +118,18 @@ exports.postNewItem = [
 // GET UPDATE: Render the items page and open a dialog
 // form for updating a message
 exports.getEditItem = asyncHandler(async (req, res) => {
-  res.send(req.params);
+  const items = await db.getItems();
+  const categories = await db.getCategories();
+
+  const itemId = Number(req.params.itemId);
+  const itemToEdit = await db.getItem(itemId);
+  res.render("items", {
+    items: items,
+    categories: categories,
+    itemToEdit: itemToEdit[0],
+    openEditForm: true,
+    isItems: true,
+  });
 });
 
 // GET DELETE: Render a warning dialog with item name

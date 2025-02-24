@@ -1,0 +1,103 @@
+<% if (locals.openNewForm) { %>
+  <form action="/items/new" method="post">
+    <h1>New Item</h1>
+    <div>
+      <label for="itemName">Name</label>
+      <input type="text" id="itemName" name="itemName" type="submit">     
+    </div>
+    <div>
+      <label for="itemDesc">Short Description</label>
+      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit"></textarea>
+    </div>
+    <div>
+      <label for="categories">Category</label>
+      <select name="categories" id="categories">
+        <% if (locals.categories) { %>
+        <% categories.forEach(category => { %>
+          <option value="<%= category.category_id %>"><%= category.category_name %></option>
+        <% }) %>
+        <% } %>
+      </select>
+    </div>
+    <div>
+      <label for="itemQuantity">Quantity</label>
+      <input type="number" name="itemQuantity" id="itemQuantity" type="submit">
+    </div>
+    <div>
+      <label for="itemValue">Value</label>
+      <input type="number" name="itemValue" id="itemValue" type="submit">
+    </div>
+    <div>
+      <p>Make it one of your favorites</p>
+      <input type="radio" name="isFavorite" id="true" value="true" type="submit">
+      <label for="true">Yea</label>
+
+      <input type="radio" name="isFavorite" id="false" value="false" type="submit">
+      <label for="false">Nay</label>
+    </div>
+    <div>
+      <a href="/items">Close</a>
+      <button type="submit">Submit</button>
+    </div>
+    <%- include('errors/newItemError') %>
+  </form>
+<% } %>
+
+<% if (locals.openEditForm) { %>
+  <form action="/items/new" method="post">
+    <h1>Edit <%= itemToEdit.item_name %></h1>
+    <div>
+      <label for="itemName">Name</label>
+      <input type="text" id="itemName" name="itemName" type="submit" value="<%= itemToEdit.item_name %>">     
+    </div>
+    <div>
+      <label for="itemDesc">Short Description</label>
+      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit">
+        <%= itemToEdit.description %>
+      </textarea>
+    </div>
+    <div>
+      <label for="categories">Category</label>
+      <select name="categories" id="categories">
+        <% if (locals.categories) { %>
+        <% categories.forEach(category => { %>
+          <% if (category.category_id === itemToEdit.category_id) { %>
+            <option selected value="<%= category.category_id %>"><%= category.category_name %></option>
+          <% } else { %>
+            <option value="<%= category.category_id %>"><%= category.category_name %></option>
+          <% } %>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+    <div>
+      <label for="itemQuantity">Quantity</label>
+      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" value="<%= itemToEdit.quantity %>">
+    </div>
+    <div>
+      <label for="itemValue">Value</label>
+      <input type="number" name="itemValue" id="itemValue" type="submit" value="<%= itemToEdit.value %>">
+    </div>
+    <div>
+      <p>Make it one of your favorites</p>
+      <% if (itemToEdit.isFavorite === true) { %>
+        <input type="radio" name="isFavorite" id="true" value="true" type="submit" checked>
+      <% } else { %>
+        <input type="radio" name="isFavorite" id="true" value="true" type="submit">
+      <% } %>
+      <label for="true">Yea</label>
+
+      <% if (itemToEdit.isFavorite === false) { %>
+        <input type="radio" name="isFavorite" id="false" value="false" type="submit" checked>
+      <% } else {%>
+        <input type="radio" name="isFavorite" id="false" value="false" type="submit">
+      <% } %>
+      <label for="false">Nay</label>
+    </div>
+    <div>
+      <a href="/items">Close</a>
+      <button type="submit">Submit</button>
+    </div>
+    <%- include('errors/newItemError') %>
+  </form>
+<% } %>

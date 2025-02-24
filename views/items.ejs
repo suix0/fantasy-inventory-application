@@ -20,52 +20,11 @@
     <%- include('partials/nav') %>
   </div>
   <dialog>
-    <form action="/items/new" method="post">
-      <h1>New Item</h1>
-      <div>
-        <label for="itemName">Name</label>
-        <input type="text" id="itemName" name="itemName" type="submit">     
-      </div>
-      <div>
-        <label for="itemDesc">Short Description</label>
-        <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit"></textarea>
-      </div>
-      <div>
-        <label for="categories">Category</label>
-        <select name="categories" id="categories">
-          <% if (locals.categories) { %>
-           <% categories.forEach(category => { %>
-            <option value="<%= category.category_id %>"><%= category.category_name %></option>
-           <% }) %>
-          <% } %>
-        </select>
-      </div>
-      <div>
-        <label for="itemQuantity">Quantity</label>
-        <input type="number" name="itemQuantity" id="itemQuantity" type="submit">
-      </div>
-      <div>
-        <label for="itemValue">Value</label>
-        <input type="number" name="itemValue" id="itemValue" type="submit">
-      </div>
-      <div>
-        <p>Make it one of your favorites</p>
-        <input type="radio" name="isFavorite" id="true" value="true" type="submit">
-        <label for="true">Yea</label>
-
-        <input type="radio" name="isFavorite" id="false" value="false" type="submit">
-        <label for="false">Nay</label>
-      </div>
-      <div>
-        <a href="/items">Close</a>
-        <button type="submit">Submit</button>
-      </div>
-      <%- include('errors/newItemError') %>
-    </form>
+   <%- include('itemForms') %>
   </dialog>
   <script>
     // Check if user requested to open form
-    const openForm = Boolean("<%= locals.openForm %>");
+    const openForm = Boolean("<%= locals.openNewForm %>") || Boolean("<%= locals.openEditForm %>");
     const dialog = document.querySelector("dialog");
 
     // Open the dialog
