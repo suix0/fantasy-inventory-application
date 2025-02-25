@@ -7,11 +7,15 @@
     --color-gray-600: oklch(0.446 0.03 256.802);
     --color-black: #000;
     --spacing: 0.25rem;
+    --font-weight-bold: 700;
   }
 }
 @layer utilities {
   .absolute {
     position: absolute;
+  }
+  .fixed {
+    position: fixed;
   }
   .static {
     position: static;
@@ -73,6 +77,10 @@
   .text-right {
     text-align: right;
   }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
   .text-black {
     color: var(--color-black);
   }
@@ -85,4 +93,8 @@
   .no-underline {
     text-decoration-line: none;
   }
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
 }
