@@ -166,3 +166,15 @@ exports.getCategories = async () => {
   `);
   return rows;
 };
+
+exports.getCategoryItems = async (categoryId) => {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM item INNER JOIN category
+    ON item.category_id = category.category_id
+    WHERE item.category_id = $1  
+  `,
+    [categoryId]
+  );
+  return rows;
+};
