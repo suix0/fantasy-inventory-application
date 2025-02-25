@@ -2,17 +2,14 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --color-red-400: oklch(0.704 0.191 22.216);
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-gray-600: oklch(0.446 0.03 256.802);
     --color-black: #000;
     --spacing: 0.25rem;
+    --font-weight-bold: 700;
   }
 }
 @layer utilities {
-  .absolute {
-    position: absolute;
-  }
   .static {
     position: static;
   }
@@ -73,11 +70,12 @@
   .text-right {
     text-align: right;
   }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
   .text-black {
     color: var(--color-black);
-  }
-  .text-red-400 {
-    color: var(--color-red-400);
   }
   .text-red-500 {
     color: var(--color-red-500);
@@ -85,4 +83,8 @@
   .no-underline {
     text-decoration-line: none;
   }
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
 }

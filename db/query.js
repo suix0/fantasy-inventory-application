@@ -122,3 +122,13 @@ exports.postEditItem = async (editItem, itemId) => {
   ];
   await pool.query(query, paramArr);
 };
+
+exports.deleteItem = async (itemId) => {
+  await pool.query(
+    `
+    DELETE FROM item
+    WHERE item_id = $1
+  `,
+    [itemId]
+  );
+};

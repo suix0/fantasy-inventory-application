@@ -176,3 +176,10 @@ exports.getDeleteItem = asyncHandler(async (req, res) => {
     openDeleteDialog: true,
   });
 });
+
+// POST DELETE
+exports.postDeleteItem = asyncHandler(async (req, res) => {
+  const itemToDelete = Number(req.params.itemId);
+  await db.deleteItem(itemToDelete);
+  res.redirect("/items");
+});
