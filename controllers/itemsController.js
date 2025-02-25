@@ -183,3 +183,28 @@ exports.postDeleteItem = asyncHandler(async (req, res) => {
   await db.deleteItem(itemToDelete);
   res.redirect("/items");
 });
+
+// GET SORT: Sort items
+exports.getSortItem = asyncHandler(async (req, res) => {
+  const sortBy = req.query.sort;
+
+  let items;
+  switch (sortBy) {
+    case "alpha":
+      items = await db.getItemsAlphabetically();
+      console.log(items);
+      break;
+    case "valueAsc":
+      items = await db.getItemsAscendingValue();
+      break;
+    case "valueDesc":
+      items = await db.getItemsDescendingValue();
+      break;
+  }
+
+  res.render("items", {
+    items: items,
+    title: "Items",
+    isItems: true,
+  });
+});

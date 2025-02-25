@@ -10,9 +10,18 @@
           <button type="submit">Search</button>
           <%- include('errors/searchError') %>
         </form>
-        <div>
+        <div class="flex gap-4">
           <a href="/items/new">Add Item</a>
-          <a>Sort by</a>
+          <div class="relative w-[120px]">
+            <button id="sortBtn" class="w-full">Sort by</button>
+            <form action="/items/sort" method="get" id="sortForm" class="absolute top-0 h-[22px] opacity-0">
+              <select name="sort" id="selectSort">
+                <option value="alpha">Alphabetically</option>
+                <option value="valueAsc">Ascending Value</option>
+                <option value="valueDesc">Descending Value</option>
+              </select>
+            </form>
+          </div>
         </div>
       </div>
       <%- include('itemsTable') %>
@@ -48,6 +57,14 @@
       event.preventDefault()
       dialog.close();
     }
+
+    // Submit form when an option is clicked
+    const select = document.querySelector("#selectSort");
+    select.value = ' ';
+      select.addEventListener("change", () => {
+        const sortForm = document.querySelector("#sortForm");
+        sortForm.submit();
+      })
   </script>
 </body>
 </html>
