@@ -1,7 +1,49 @@
 const db = require("../db/query");
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 
+const validateCategoryName = [
+  body("categoryName")
+    .trim()
+    .notEmpty()
+    .withMessage("Category name can't be empty!")
+    .isLength({ max: 25 })
+    .withMessage("Category name has a maximum of 25 characters only"),
+];
+
+// READ: Get all categories
 exports.getCategories = asyncHandler(async (req, res) => {
   const categories = await db.getCategories();
   res.render("categories", { title: "Categories", categories: categories });
 });
+
+// READ: Read items depending on clicked category
+exports.getCategoryItems = asyncHandler(async (req, res) => {
+  const categoryId = Number(req.params.categoryId);
+  const categories = await db.getCategories();
+  const items = await db.getCategoryItems(categoryId);
+  res.render("categories", {
+    title: "Categories",
+    categories: categories,
+    items: items,
+  });
+});
+
+// CREATE: Post a new category
+exports.postNewCategory = [
+  validateCategoryName,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      const categories = await db.getCategories();
+      res.render("categories", {
+        title: "Categories",
+        categories: categories,
+        categoryNameErrors: errors.array(),
+        openForm: true,
+      });
+      return;
+    }
+  }),
+];

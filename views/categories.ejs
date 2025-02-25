@@ -3,20 +3,60 @@
 <%- include('partials/head') %> 
 <body>
   <main>
-    <div class="flex gap-4">
-      <a href="/categories/new">Add Category</a>
-      <a href="/categories/delete">Delete Category</a>
-    </div>
+    <button id="addCategoryBtn">Add Category</button>
 
     <div class="flex gap-4">
       <% categories.forEach(category => { %>
         <div>
-          <p><%= category.category_name %></p>
+          <a href="/categories/<%= category.category_id %>"><%= category.category_name %></a>
+          <% if (category.custom) { %>
+           <a href="/categories/delete/<%= category.category_id %>">Delete</a>
+          <% } %>
         </div>
         <% }) %>
     </div>
   </main>
+  <% if (locals.items) { %>
+    <div class=" w-[650px]">
+      <%- include('itemsTable') %>
+    </div>
+  <% } %>
   <%- include('partials/nav') %>
-  
+  <dialog>
+    <form action="/categories/new" method="post">
+      <div>
+        <label for="categoryName">Cateogy Name</label>
+        <input type="text" name="categoryName" id="categoryName">
+      </div>
+      <div>
+        <button id="cancel">Cancel</button>
+        <button type="submit">Submit</button>
+      </div>
+      <%- include('errors/newCategoryError') %>
+    </form>
+  </dialog>
+  <script>
+    const dialog = document.querySelector("dialog"); 
+
+    // Remain dialog to be open when rerendering categories view
+    // after failing form validation
+    const openDialogDefault = Boolean("<%= locals.openForm %>");
+    if (openDialogDefault) {
+      dialog.showModal();
+    }
+
+    // Open add form dialog after clicking add category
+    const addCategoryBtn = document.querySelector("#addCategoryBtn");
+    addCategoryBtn.addEventListener("click", () => {
+      dialog.showModal();
+    })
+
+    // Close dialog when clicking cancel
+    const cancelAddCategoryBtn = document.querySelector("#cancel");
+    cancelAddCategoryBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      dialog.close();
+    })
+  </script>
 </body>
 </html>
