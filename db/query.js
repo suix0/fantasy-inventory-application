@@ -159,3 +159,10 @@ exports.getItemsDescendingValue = async () => {
   `);
   return rows;
 };
+
+exports.getCategories = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM category;   
+  `);
+  return rows;
+};

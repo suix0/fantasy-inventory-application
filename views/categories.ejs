@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %> 
+<body>
+  <main>
+    <div class="flex gap-4">
+      <a href="/categories/new">Add Category</a>
+      <a href="/categories/delete">Delete Category</a>
+    </div>
+
+    <div class="flex gap-4">
+      <% categories.forEach(category => { %>
+        <div>
+          <p><%= category.category_name %></p>
+        </div>
+        <% }) %>
+    </div>
+  </main>
+  <%- include('partials/nav') %>
+  
+</body>
+</html>
