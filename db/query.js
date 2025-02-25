@@ -172,9 +172,39 @@ exports.getCategoryItems = async (categoryId) => {
     `
     SELECT * FROM item INNER JOIN category
     ON item.category_id = category.category_id
-    WHERE item.category_id = $1  
+    WHERE item.category_id = $1;  
   `,
     [categoryId]
   );
   return rows;
+};
+
+exports.postNewCategory = async (categoryName) => {
+  await pool.query(
+    `
+    INSERT INTO category (category_name, custom)
+    VALUES ($1, true);
+  `,
+    [categoryName]
+  );
+};
+
+exports.deleteCategoryItems = async (categoryId) => {
+  await pool.query(
+    `
+    DELETE FROM item
+    WHERE category_id = $1;
+  `,
+    [categoryId]
+  );
+};
+
+exports.deleteCategory = async (categoryId) => {
+  await pool.query(
+    `
+    DELETE FROM category
+    WHERE category_id = $1;
+  `,
+    [categoryId]
+  );
 };

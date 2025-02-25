@@ -34,7 +34,6 @@ exports.postNewCategory = [
   validateCategoryName,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
-    console.log(errors);
     if (!errors.isEmpty()) {
       const categories = await db.getCategories();
       res.render("categories", {
@@ -45,5 +44,24 @@ exports.postNewCategory = [
       });
       return;
     }
+    const newCategory = req.body.categoryName;
+    await db.postNewCategory(newCategory);
+    res.redirect("/categories");
   }),
 ];
+
+// DELETE: Delete a category
+exports.postDeleteCategory = asyncHandler(async (req, res) => {
+  const categoryId = Number(req.params.categoryId);
+
+  // Prevent force deletion of main categories (weapon, armor, potion)
+  if (categoryId >= 1 && categoryId <= 3) {
+    res.redirect("/categories");
+    return;
+  }
+  // Delete items belonging to category
+  await db.deleteCategoryItems(categoryId);
+  // Delete the category
+  await db.deleteCategory(categoryId);
+  res.redirect("/categories");
+});
