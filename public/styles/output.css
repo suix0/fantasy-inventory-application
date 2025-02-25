@@ -2,6 +2,7 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
+    --color-red-400: oklch(0.704 0.191 22.216);
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-gray-600: oklch(0.446 0.03 256.802);
     --color-black: #000;
@@ -10,14 +11,26 @@
   }
 }
 @layer utilities {
+  .invisible {
+    visibility: hidden;
+  }
   .absolute {
     position: absolute;
   }
   .fixed {
     position: fixed;
   }
+  .relative {
+    position: relative;
+  }
   .static {
     position: static;
+  }
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
+  .bottom-0 {
+    bottom: calc(var(--spacing) * 0);
   }
   .m-0 {
     margin: calc(var(--spacing) * 0);
@@ -25,14 +38,29 @@
   .flex {
     display: flex;
   }
+  .hidden {
+    display: none;
+  }
   .table {
     display: table;
+  }
+  .h-\[22px\] {
+    height: 22px;
+  }
+  .w-\[120px\] {
+    width: 120px;
   }
   .w-\[650px\] {
     width: 650px;
   }
+  .w-fit {
+    width: fit-content;
+  }
   .w-full {
     width: 100%;
+  }
+  .w-max {
+    width: max-content;
   }
   .resize {
     resize: both;
@@ -83,11 +111,17 @@
   .text-black {
     color: var(--color-black);
   }
+  .text-red-400 {
+    color: var(--color-red-400);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }
   .no-underline {
     text-decoration-line: none;
+  }
+  .opacity-0 {
+    opacity: 0%;
   }
 }
 @property --tw-font-weight {

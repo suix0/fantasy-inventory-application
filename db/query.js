@@ -132,3 +132,30 @@ exports.deleteItem = async (itemId) => {
     [itemId]
   );
 };
+
+exports.getItemsAlphabetically = async () => {
+  const { rows } = await pool.query(`
+     SELECT * FROM item 
+     INNER JOIN category ON item.category_id = category.category_id
+     ORDER BY item.item_name;
+  `);
+  return rows;
+};
+
+exports.getItemsAscendingValue = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM item 
+     INNER JOIN category ON item.category_id = category.category_id
+     ORDER BY item.value ASC;
+  `);
+  return rows;
+};
+
+exports.getItemsDescendingValue = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM item 
+     INNER JOIN category ON item.category_id = category.category_id
+     ORDER BY item.value DESC;
+  `);
+  return rows;
+};
