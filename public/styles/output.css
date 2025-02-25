@@ -1,8 +1,7 @@
 /*! tailwindcss v4.0.8 | MIT License | https://tailwindcss.com */
 @layer theme, base, components, utilities;
 @layer theme {
-  :root,
-  :host {
+  :root, :host {
     --color-red-400: oklch(0.704 0.191 22.216);
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-gray-600: oklch(0.446 0.03 256.802);
@@ -128,8 +127,4 @@
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
-}
-
-* {
-  box-sizing: border-box;
 }
