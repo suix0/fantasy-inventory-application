@@ -161,5 +161,18 @@ exports.postEditItem = [
 // GET DELETE: Render a warning dialog with item name
 // for confirmation
 exports.getDeleteItem = asyncHandler(async (req, res) => {
-  res.send(req.params);
+  // Get the item to delete
+  const itemId = Number(req.params.itemId);
+  const itemToDelete = await db.getItem(itemId);
+  const items = await db.getItems();
+  const categories = await db.getCategories();
+
+  // Render the items view with delete confirmation dialog
+  res.render("items", {
+    items: items,
+    categories: categories,
+    itemToDelete: itemToDelete[0],
+    isItems: true,
+    openDeleteDialog: true,
+  });
 });

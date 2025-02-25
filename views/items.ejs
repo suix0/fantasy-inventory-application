@@ -20,11 +20,21 @@
     <%- include('partials/nav') %>
   </div>
   <dialog>
-   <%- include('itemForms') %>
+    <% if (locals.openNewForm || locals.openEditForm) { %>
+      <%- include('itemForms') %>
+    <% } else if (locals.openDeleteDialog) {%>
+      <div>
+        <p>Are you sure you want to delete item name <span><%= itemToDelete.item_name %></span>?</p>
+        <div>
+          <a href="/items">Nevermind</a>
+          <a href="">Yes</a>
+        </div>
+      </div>
+    <% } %>
   </dialog>
   <script>
     // Check if user requested to open form
-    const openForm = Boolean("<%= locals.openNewForm %>") || Boolean("<%= locals.openEditForm %>");
+    const openForm = Boolean("<%= locals.openNewForm %>") || Boolean("<%= locals.openEditForm %>") || Boolean("<%= locals.openDeleteDialog %>");
     const dialog = document.querySelector("dialog");
 
     // Open the dialog
