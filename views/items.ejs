@@ -24,10 +24,12 @@
       <%- include('itemForms') %>
     <% } else if (locals.openDeleteDialog) {%>
       <div>
-        <p>Are you sure you want to delete item name <span><%= itemToDelete.item_name %></span>?</p>
-        <div>
+        <p>Are you sure you want to delete item <span class="font-bold"><%= itemToDelete.item_name %></span>?</p>
+        <div class="flex gap-2">
           <a href="/items">Nevermind</a>
-          <a href="">Yes</a>
+          <form action="/items/delete/<%= itemToDelete.item_id %>" method="post">
+            <button type="submit">Yes</button>
+          </form>
         </div>
       </div>
     <% } %>
