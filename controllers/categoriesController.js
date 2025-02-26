@@ -1,6 +1,8 @@
 const db = require("../db/query");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const custom404 = require("../errors/404");
+const custom500 = require("../errors/500");
 
 const validateCategoryName = [
   body("categoryName")
@@ -14,6 +16,11 @@ const validateCategoryName = [
 // READ: Get all categories
 exports.getCategories = asyncHandler(async (req, res) => {
   const categories = await db.getCategories();
+
+  if (!categories) {
+    throw new custom404("Categories not found.");
+  }
+
   res.render("categories", { title: "Categories", categories: categories });
 });
 
@@ -21,7 +28,19 @@ exports.getCategories = asyncHandler(async (req, res) => {
 exports.getCategoryItems = asyncHandler(async (req, res) => {
   const categoryId = Number(req.params.categoryId);
   const categories = await db.getCategories();
+
+  if (!categories) {
+    throw new custom404("Categories not found.");
+  }
+
   const items = await db.getCategoryItems(categoryId);
+
+  console.log(items);
+
+  if (items.length === 0) {
+    throw new custom404("Items not found.");
+  }
+
   res.render("categories", {
     title: "Categories",
     categories: categories,
@@ -36,6 +55,11 @@ exports.postNewCategory = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const categories = await db.getCategories();
+
+      if (!categories) {
+        throw new custom404("Categories not found.");
+      }
+
       res.render("categories", {
         title: "Categories",
         categories: categories,
@@ -56,8 +80,7 @@ exports.postDeleteCategory = asyncHandler(async (req, res) => {
 
   // Prevent force deletion of main categories (weapon, armor, potion)
   if (categoryId >= 1 && categoryId <= 3) {
-    res.redirect("/categories");
-    return;
+    throw new custom500("You can't just delete pre-defined categories!");
   }
   // Delete items belonging to category
   await db.deleteCategoryItems(categoryId);
@@ -83,8 +106,7 @@ exports.postEditCategory = [
       return;
     }
     if (categoryId >= 1 && categoryId <= 3) {
-      res.redirect("/categories");
-      return;
+      throw new custom500("You can't just update pre-defined categories!");
     }
     const newCategoryName = req.body.categoryName;
     await db.postEditCategory(categoryId, newCategoryName);
