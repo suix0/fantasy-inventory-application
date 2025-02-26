@@ -15,9 +15,16 @@
           </li>
           <% categories.forEach(category => { %>
           <li class="list-none">
-            <a 
-            class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
-            href="/<%= category.category_name.toLowerCase() %>"><%= category.category_name %></a>
+            <%# add view of custom categories items %>
+            <% if (category.custom) { %>
+              <a 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              href="/customCategory/<%= category.category_id %>"><%= category.category_name %></a>
+            <% } else {%>
+              <a 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              href="/<%= category.category_name.toLowerCase() %>"><%= category.category_name %></a>
+            <% } %>
           </li>
           <% }) %>
         </ul>

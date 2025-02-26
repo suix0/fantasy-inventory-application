@@ -10,7 +10,7 @@
         <div>
           <a href="/categories/<%= category.category_id %>"><%= category.category_name %></a>
           <% if (category.custom) { %>
-           <a href="/categories/delete/<%= category.category_id %>">Delete</a>
+           <a data-delete="delete" data-category-name="<%= category.category_name %>" id="<%= category.category_id %>">Delete</a>
           <% } %>
         </div>
         <% }) %>
@@ -22,7 +22,7 @@
     </div>
   <% } %>
   <%- include('partials/nav') %>
-  <dialog>
+  <dialog id="formDialog">
     <form action="/categories/new" method="post">
       <div>
         <label for="categoryName">Cateogy Name</label>
@@ -35,7 +35,18 @@
       <%- include('errors/newCategoryError') %>
     </form>
   </dialog>
+  <dialog id="deleteConfirmation">
+    <form method="post" id="deleteConfirmationForm">
+      <p>Are you sure you want to delete <span id="categoryNameSpan"></span></p>
+      <p>This action deletes items associated with the category.</p>
+      <div>
+        <button id="cancelDelete">Cancel</button>
+        <button type="submit">Delete</button>
+      </div>
+    </form>
+  </dialog>
   <script>
+    // Form dialog
     const dialog = document.querySelector("dialog"); 
 
     // Remain dialog to be open when rerendering categories view
@@ -57,6 +68,37 @@
       e.preventDefault();
       dialog.close();
     })
+
+    const deleteDialog = document.querySelector("#deleteConfirmation"); 
+
+    // Get the delete buttons of the custom categories
+    const customCategoryDeleteButtons = document.querySelectorAll("[data-delete]");
+    [...customCategoryDeleteButtons].forEach(deleteBtns => {
+
+      // Open dialog when they are clicked and programatically assign action with category
+      // to delete to the form confirmation inside dialog
+      deleteBtns.addEventListener('click', (e) => {
+        const deleteBtnId = Number(e.target.id)
+
+        // Get the category name attached to the delete button
+        const categoryName = e.target.dataset.categoryName;
+        console.log(categoryName)
+        deleteDialog.showModal();
+
+        const span = document.querySelector("#categoryNameSpan");
+        span.textContent = categoryName;
+
+        const deleteConfirmationForm = document.querySelector("#deleteConfirmationForm");
+        deleteConfirmationForm.setAttribute("action", `categories/delete/${deleteBtnId}`);
+      })
+    })
+
+    const cancelBtn = document.querySelector("#cancelDelete");
+    cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault()
+      deleteDialog.close();
+    })
+
   </script>
 </body>
 </html>

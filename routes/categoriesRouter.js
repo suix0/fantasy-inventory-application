@@ -8,7 +8,7 @@ categoriesRouter.get("/:categoryId", categoriesController.getCategoryItems);
 
 categoriesRouter.post("/new", categoriesController.postNewCategory);
 
-categoriesRouter.get(
+categoriesRouter.post(
   "/delete/:categoryId",
   categoriesController.postDeleteCategory
 );

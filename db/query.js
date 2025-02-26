@@ -62,6 +62,17 @@ exports.getCategories = async () => {
   return rows;
 };
 
+exports.getCategory = async (categoryId) => {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM category
+    WHERE category_id = $1
+  `,
+    [categoryId]
+  );
+  return rows;
+};
+
 exports.getWeapons = async () => {
   const { rows } = await pool.query(`
     SELECT * FROM item

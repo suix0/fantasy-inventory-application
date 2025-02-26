@@ -36,6 +36,19 @@ exports.getPotions = asyncHandler(async (req, res) => {
     items: items,
     categories: categories,
     currentCategory: "Potions",
-    title: "Armors",
+    title: "Potions",
+  });
+});
+
+exports.getCustomCategoryItems = asyncHandler(async (req, res) => {
+  const categoryId = Number(req.params.categoryId);
+  const category = await db.getCategory(categoryId);
+  const items = await db.getCategoryItems(categoryId);
+  const categories = await db.getCategories();
+  res.render("index", {
+    items: items,
+    categories: categories,
+    currentCategory: category[0].category_name,
+    title: category[0].category_name,
   });
 });
