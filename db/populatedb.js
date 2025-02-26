@@ -3,7 +3,8 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE category (
   category_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  category_name VARCHAR(255) NOT NULL
+  category_name VARCHAR(255) NOT NULL,
+  custom BOOL NOT NULL
 );
 
 CREATE TABLE item (
@@ -17,8 +18,8 @@ CREATE TABLE item (
   FOREIGN KEY (category_id) REFERENCES category (category_id)
 );
 
-INSERT INTO category (category_name)
-VALUES ('Weapon'), ('Armor'), ('Potions');
+INSERT INTO category (category_name, custom)
+VALUES ('Weapon', false), ('Armor', false), ('Potions', false);
 
 INSERT INTO item (category_id, item_name, description, quantity, value, is_favorite)
 VALUES 
