@@ -10,7 +10,8 @@
         <div>
           <a href="/categories/<%= category.category_id %>"><%= category.category_name %></a>
           <% if (category.custom) { %>
-           <a data-delete="delete" data-category-name="<%= category.category_name %>" id="<%= category.category_id %>">Delete</a>
+            <button data-edit="edit" data-category-name="<%= category.category_name %>" id="<%= category.category_id %>">Edit</button>
+           <button data-delete="delete" data-category-name="<%= category.category_name %>" id="<%= category.category_id %>">Delete</button>
           <% } %>
         </div>
         <% }) %>
@@ -42,6 +43,15 @@
       <div>
         <button id="cancelDelete">Cancel</button>
         <button type="submit">Delete</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="editCategory">
+    <form method="post" id="editForm">
+      <input type="text" name="categoryName" id="editCategoryName">
+      <div>
+        <button id="cancelEdit">Cancel</button>
+        <button>Submit</button>
       </div>
     </form>
   </dialog>
@@ -89,7 +99,7 @@
         span.textContent = categoryName;
 
         const deleteConfirmationForm = document.querySelector("#deleteConfirmationForm");
-        deleteConfirmationForm.setAttribute("action", `categories/delete/${deleteBtnId}`);
+        deleteConfirmationForm.setAttribute("action", `/categories/delete/${deleteBtnId}`);
       })
     })
 
@@ -99,6 +109,37 @@
       deleteDialog.close();
     })
 
+    // Apply the same logic behind the delete buttons to the
+    // Edit buttons
+    const editDialog = document.querySelector("#editCategory");
+
+    // Open modal when rendering categories page with modal open
+    // to ensure that we are still on form after error
+    const isEditOpen = Boolean("<%= locals.openEditForm %>");
+    if (isEditOpen) {
+      editDialog.showModal();
+    }
+
+    const editButtons = document.querySelectorAll("[data-edit]");
+    console.log(editButtons);
+    [...editButtons].forEach(editBtn => {
+      editBtn.addEventListener("click", (e) => {
+        const editBtnId = Number(e.target.id);
+
+        const categoryName = e.target.dataset.categoryName;
+        editDialog.showModal();
+
+        const editForm = document.querySelector("#editForm");
+        editForm.setAttribute("action", `/categories/edit/${editBtnId}`);
+      })
+    })
+
+
+    const cancelBtnEdit = document.querySelector("#cancelEdit");
+    cancelBtnEdit.addEventListener("click", (e) => {
+      e.preventDefault()
+      editDialog.close();
+    })
   </script>
 </body>
 </html>

@@ -65,3 +65,29 @@ exports.postDeleteCategory = asyncHandler(async (req, res) => {
   await db.deleteCategory(categoryId);
   res.redirect("/categories");
 });
+
+// UPDATE: Update a category name
+exports.postEditCategory = [
+  validateCategoryName,
+  asyncHandler(async (req, res) => {
+    const categoryId = Number(req.params.categoryId);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const categories = await db.getCategories();
+      res.render("categories", {
+        title: "Categories",
+        categories: categories,
+        categoryNameErrors: errors.array(),
+        openEditForm: true,
+      });
+      return;
+    }
+    if (categoryId >= 1 && categoryId <= 3) {
+      res.redirect("/categories");
+      return;
+    }
+    const newCategoryName = req.body.categoryName;
+    await db.postEditCategory(categoryId, newCategoryName);
+    res.redirect("/categories");
+  }),
+];

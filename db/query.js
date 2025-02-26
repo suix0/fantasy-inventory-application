@@ -219,3 +219,13 @@ exports.deleteCategory = async (categoryId) => {
     [categoryId]
   );
 };
+
+exports.postEditCategory = async (categoryId, newCategoryName) => {
+  await pool.query(
+    `UPDATE category
+     SET category_name = $2
+     WHERE category_id = $1;
+    `,
+    [categoryId, newCategoryName]
+  );
+};
