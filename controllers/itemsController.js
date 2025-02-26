@@ -2,6 +2,7 @@ const db = require("../db/query");
 const asyncHandler = require("express-async-handler");
 const { query, body, validationResult } = require("express-validator");
 const { toTitleCase } = require("../utils/strings");
+const custom404 = require("../errors/404");
 
 const queryValidation = [
   query("search")
@@ -32,6 +33,11 @@ const itemValidation = [
 // GET READ: Get all items from db and render items
 exports.getAllItems = asyncHandler(async (req, res) => {
   const items = await db.getItems();
+
+  if (!items) {
+    throw new custom404("Items not found.");
+  }
+
   res.render("items", { items: items, title: "Items", isItems: true });
 });
 
@@ -42,6 +48,11 @@ exports.getItem = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const items = await db.getItems();
+
+      if (!items) {
+        throw new custom404("Items not found.");
+      }
+
       return res.render("items", {
         items: items,
         searchError: errors.array(),
@@ -61,6 +72,11 @@ exports.getItem = [
       // Query each data that contains all strings (e.g. [sword, axe]
       // will return rows that contain sword or axe
       const searchResults = await db.getItemSearch(newQuerySearch);
+
+      if (!searchResults) {
+        throw new custom404("Search result not found.");
+      }
+
       return res.render("items", {
         items: searchResults,
         title: "Items",
@@ -70,6 +86,11 @@ exports.getItem = [
       // Case for individual string query
     } else {
       const searchResult = await db.getItemSearch(toTitleCase(querySearch));
+
+      if (!searchResult) {
+        throw new custom404("Search result not found.");
+      }
+
       res.render("items", {
         items: searchResult,
         title: "Items",
@@ -84,6 +105,11 @@ exports.getItem = [
 exports.getNewItem = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   const categories = await db.getCategories();
+
+  if (!items || !categories) {
+    throw new custom404("Items/Categories not found.");
+  }
+
   res.render("items", {
     items: items,
     categories: categories,
@@ -100,6 +126,11 @@ exports.postNewItem = [
     if (!errors.isEmpty()) {
       const items = await db.getItems();
       const categories = await db.getCategories();
+
+      if (!items || !categories) {
+        throw new custom404("Items/Categories not found.");
+      }
+
       res.render("items", {
         items: items,
         categories: categories,
@@ -121,8 +152,16 @@ exports.getEditItem = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   const categories = await db.getCategories();
 
+  if (!items || !categories) {
+    throw new custom404("Items/Categories not found!");
+  }
+
   const itemId = Number(req.params.itemId);
   const itemToEdit = await db.getItem(itemId);
+
+  if (!itemToEdit) {
+    throw new custom404("Item to edit not found.");
+  }
   res.render("items", {
     items: items,
     categories: categories,
@@ -141,7 +180,17 @@ exports.postEditItem = [
     if (!errors.isEmpty()) {
       const items = await db.getItems();
       const categories = await db.getCategories();
+
+      if (!items || !categories) {
+        throw new custom404("Items/Categories not found!");
+      }
+
       const itemToEdit = await db.getItem(itemId);
+
+      if (!itemToEdit) {
+        throw new custom404("Item to edit not found.");
+      }
+
       res.render("items", {
         items: items,
         categories: categories,
@@ -164,8 +213,17 @@ exports.getDeleteItem = asyncHandler(async (req, res) => {
   // Get the item to delete
   const itemId = Number(req.params.itemId);
   const itemToDelete = await db.getItem(itemId);
+
+  if (itemToDelete.length === 0) {
+    throw new custom404("Item to delete not found.");
+  }
+
   const items = await db.getItems();
   const categories = await db.getCategories();
+
+  if (!items || !categories) {
+    throw new custom404("Items/Categories not found!");
+  }
 
   // Render the items view with delete confirmation dialog
   res.render("items", {
@@ -192,7 +250,6 @@ exports.getSortItem = asyncHandler(async (req, res) => {
   switch (sortBy) {
     case "alpha":
       items = await db.getItemsAlphabetically();
-      console.log(items);
       break;
     case "valueAsc":
       items = await db.getItemsAscendingValue();
@@ -200,6 +257,8 @@ exports.getSortItem = asyncHandler(async (req, res) => {
     case "valueDesc":
       items = await db.getItemsDescendingValue();
       break;
+    default:
+      throw new custom404("Please sort only with the options given.");
   }
 
   res.render("items", {

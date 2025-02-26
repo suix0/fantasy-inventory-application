@@ -15,6 +15,15 @@ app.use("/", indexRouter);
 app.use("/items", itemsRouter);
 app.use("/categories", categoriesRouter);
 
+app.use((req, res, next) => {
+  res.render("errorPage");
+});
+
+app.use((err, req, res, next) => {
+  res
+    .status(err.statusCode)
+    .render("errorPage", { errCode: err.statusCode, message: err.message });
+});
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => console.log(`Server is listening at port ${PORT}`));
