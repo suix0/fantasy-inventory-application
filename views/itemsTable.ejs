@@ -13,7 +13,8 @@
     </tr>
     <% items.forEach(item => { %>
      <tr id="<%= item.item_id %>" class="hover:bg-gradient-to-r from-[#4c4d4d0a] via-[#a4b4b100] to-[#e5e5cb] hover:from-[#b4c5bb00] hover:via-[#cad6c38f] hover:to-[#8d8d7e] p-4 rounded-lg">
-      <th class="text-left pb-2" data-item="item" data-name="<%= item.item_name %>" data-description="<%= item.description %>" data-category="<%= item.category_name %>" data-value="<%= item.value %>"><%= item.item_name %></th>
+      <% const quantity = item.quantity > 1 ? `(${item.quantity})` : " " %>
+      <th class="text-left pb-2" data-item="item" data-name="<%= item.item_name %>" data-description="<%= item.description %>" data-category="<%= item.category_name %>" data-value="<%= item.value %>"><%= item.item_name %> <%= quantity%></th>
       <th class="text-right pb-2" data-item="item" data-name="<%= item.item_name %>" data-description="<%= item.description %>" data-category="<%= item.category_name %>" data-value="<%= item.value %>"><%= item.category_name%></th>
       <th class="text-right pb-2" data-item="item" data-name="<%= item.item_name %>" data-description="<%= item.description %>" data-category="<%= item.category_name %>" data-value="<%= item.value %>"><%= item.value %></th>
       <% if (locals.isItems) { %>

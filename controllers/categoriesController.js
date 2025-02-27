@@ -29,17 +29,7 @@ exports.getCategoryItems = asyncHandler(async (req, res) => {
   const categoryId = Number(req.params.categoryId);
   const categories = await db.getCategories();
 
-  if (!categories) {
-    throw new custom404("Categories not found.");
-  }
-
   const items = await db.getCategoryItems(categoryId);
-
-  console.log(items);
-
-  if (items.length === 0) {
-    throw new custom404("Items not found.");
-  }
 
   res.render("categories", {
     title: "Categories",
