@@ -8,8 +8,13 @@
       <header class="text-2xl">
         <ul class="flex gap-10 m-0 p-0">
           <li class="list-none">
-            <a href="/" class="<%= !locals.currentCategory && 'underline' %> no-underline text-last hover:underline ">
+            <a href="/" class="text-last <%= locals.currentCategory === 'All' ? "underline" : "" %> no-underline text-last hover:underline">
               All
+            </a>
+          </li>
+          <li class="list-none  <%= locals.currentCategory === 'Favorites' ? "underline" : "" %> no-underline text-last hover:underline"">
+            <a href="/favorites" class="text-last no-underline">
+              Favorites
             </a>
           </li>
           </li>

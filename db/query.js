@@ -8,6 +8,14 @@ exports.getItems = async () => {
   return rows;
 };
 
+exports.getFavoriteItems = async () => {
+  const { rows } = await pool.query(`
+    SELECT * FROM item INNER JOIN category ON item.category_id = category.category_id 
+    WHERE item.is_favorite = true; 
+  `);
+  return rows;
+};
+
 // Search
 exports.getItemSearch = async (name) => {
   if (Array.isArray(name)) {
