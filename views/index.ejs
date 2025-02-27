@@ -2,7 +2,7 @@
 <html lang="en">
 <%- include('partials/head') %>
 <body class="h-[100svh] m-0">
-  <div class="grid grid-cols-[1fr_2fr_2fr_1fr] h-full">
+  <div class="grid grid-cols-[1fr_2fr_2fr_1fr] h-full gap-4">
     <!-- Home Main Content RPG-Like Inventory -->
     <main class="flex flex-col w-[650px] bg-secondary opacity-80 p-4 gap-4 colr-start-2 col-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
       <header class="text-2xl">
@@ -45,7 +45,35 @@
     </main>
 
     <!-- Header for navigating between Home, All Items, Categories -->
-    <%- include('partials/nav') %>
+     <div class="flex flex-col justify-between">
+       <%- include('partials/nav') %>
+       <section class=" invisible flex flex-col items-center justify-center mb-[25rem] bg-tertiary opacity-70 gap-4 p-4 rounded-md">
+        <p id="displayName" class="text-3xl m-0"></p>
+        <p id="displayDesc" class="m-0"></p>
+        <p id="displayVal" class="m-0"></p>
+       </section>
+      </div>
   </div>
+  <script>
+     const section = document.querySelector("section");
+     const itemRows = document.querySelectorAll("[data-item='item']");
+     itemRows.forEach(item => {
+      item.addEventListener("click", (e) => {
+        const itemName = e.target.dataset.name;
+        const itemDescription = e.target.dataset.description;
+        const itemValue = e.target.dataset.value;
+
+        const displayName = document.querySelector("#displayName");
+        const displayDesc = document.querySelector("#displayDesc");
+        const displayVal = document.querySelector("#displayVal");
+
+
+        section.style.visibility = 'visible';
+        displayName.textContent = itemName;
+        displayDesc.textContent = itemDescription === '' ? "No description for this item defined." : itemDescription;
+        displayVal.textContent = `Item value: ${itemValue}`
+      })
+     })
+  </script>
 </body>
 </html>
