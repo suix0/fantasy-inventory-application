@@ -7,7 +7,7 @@ exports.getAllItems = asyncHandler(async (req, res) => {
   res.render("index", {
     items: items,
     categories: categories,
-    title: "Home",
+    title: "RPG Inventory",
     currentCategory: "All",
   });
 });
