@@ -38,10 +38,10 @@
     <% } else if (locals.openDeleteDialog) {%>
       <div>
         <p>Are you sure you want to delete item <span class="font-bold"><%= itemToDelete.item_name %></span>?</p>
-        <div class="flex gap-2">
-          <a href="/items">Nevermind</a>
-          <form action="/items/delete/<%= itemToDelete.item_id %>" method="post">
-            <button type="submit">Yes</button>
+        <div class="flex gap-2 justify-end">
+          <a href="/items" class="p-2 flex items-center justify-center no-underline text-black bg-tertiary w-[100px]">Nevermind</a>
+          <form action="/items/delete/<%= itemToDelete.item_id %>" method="post" class=" bg-secondary text-base">
+            <button type="submit" class="p-2 cursor-pointer text-last bg-secondary w-[100px] text-base border-0">Yes</button>
           </form>
         </div>
       </div>

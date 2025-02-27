@@ -7,6 +7,8 @@
     --color-blue-100: oklch(0.932 0.032 255.585);
     --color-black: #000;
     --spacing: 0.25rem;
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-2xl: 1.5rem;
@@ -143,8 +145,14 @@
   .w-\[40vw\] {
     width: 40vw;
   }
+  .w-\[100px\] {
+    width: 100px;
+  }
   .w-\[120px\] {
     width: 120px;
+  }
+  .w-\[150px\] {
+    width: 150px;
   }
   .w-\[650px\] {
     width: 650px;
@@ -303,6 +311,10 @@
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
