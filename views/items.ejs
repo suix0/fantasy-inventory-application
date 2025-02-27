@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('partials/head') %>
-<body>
-  <div>
-    <main class="flex flex-col w-[650px]">
+<body class="h-[100svh] m-0">
+  <div class="grid grid-cols-[1fr_2fr_2fr_1fr] h-full">
+    <main class="flex flex-col w-[650px] bg-secondary opacity-80 p-4 gap-4 colr-start-2 col-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
       <div class="flex justify-between">
         <form action="/items/search" method="get" class="flex gap-1">
-          <input type="search" name="search" id="search">
-          <button type="submit">Search</button>
+          <input type="search" name="search" id="search" class=" bg-tertiary border-0 border-tertiary text-lg">
+          <button type="submit" class="bg-primary text-last text-md hover:cursor-pointer">Search</button>
           <%- include('errors/searchError') %>
         </form>
-        <div class="flex gap-4">
-          <a href="/items/new">Add Item</a>
-          <div class="relative w-[120px]">
-            <button id="sortBtn" class="w-full">Sort by</button>
-            <form action="/items/sort" method="get" id="sortForm" class="absolute top-0 h-[22px] opacity-0">
-              <select name="sort" id="selectSort">
+        <div class="flex gap-4 items-center">
+          <a href="/items/new" class="h-full">
+            <img src="/add.svg" alt="Add icon" title="Add new item" class="w-8 h-full">
+          </a>
+          <div class="relative w-[120px] h-full">
+            <button id="sortBtn" class="w-full bg-primary text-last text-md hover:cursor-pointer h-full">Sort by</button>
+            <form action="/items/sort" method="get" id="sortForm" class="absolute top-0 opacity-0 h-full">
+              <select name="sort" id="selectSort" class="bg-primary text-last h-full border-2">
                 <option value="alpha">Alphabetically</option>
                 <option value="valueAsc">Ascending Value</option>
                 <option value="valueDesc">Descending Value</option>
@@ -24,11 +26,13 @@
           </div>
         </div>
       </div>
-      <%- include('itemsTable') %>
+      <div class="overflow-auto">
+        <%- include('itemsTable') %>
+      </div>
     </main>
     <%- include('partials/nav') %>
   </div>
-  <dialog>
+  <dialog class="bg-last text-primary">
     <% if (locals.openNewForm || locals.openEditForm) { %>
       <%- include('itemForms') %>
     <% } else if (locals.openDeleteDialog) {%>

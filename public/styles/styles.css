@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serifs;
   background-image: url("/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;

@@ -18,8 +18,12 @@
       <th class="text-right pb-2" data-item="item" data-name="<%= item.item_name %>" data-description="<%= item.description %>" data-category="<%= item.category_name %>" data-value="<%= item.value %>"><%= item.value %></th>
       <% if (locals.isItems) { %>
        <th class="text-right pb-2">
-        <a href="/items/edit/<%= item.item_id %>">Edit</a>
-        <a href="/items/delete/<%= item.item_id %>">Delete</a>
+        <a href="/items/edit/<%= item.item_id %>">
+          <img src="/edit.svg" alt="Edit icon" title="Edit message button" class="w-7">
+        </a>
+        <a href="/items/delete/<%= item.item_id %>">
+          <img src="/delete.svg" alt="Delete icon" title="Delete message icon" class="w-7">
+        </a>
        </th>
       <% } %>
      </tr>
