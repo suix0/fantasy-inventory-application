@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('partials/head') %>
-<body>
-  <div>
+<body class="h-[100svh] m-0">
+  <div class="grid grid-cols-[1fr_2fr_2fr_1fr] h-full">
     <!-- Home Main Content RPG-Like Inventory -->
-    <main class="flex flex-col w-[650px]">
-      <header>
-        <ul class="flex gap-4 m-0 p-0">
+    <main class="flex flex-col w-[650px] bg-secondary opacity-80 p-4 gap-4 colr-start-2 col-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
+      <header class="text-2xl">
+        <ul class="flex gap-10 m-0 p-0">
           <li class="list-none">
-            <a href="/" class="<%= !locals.currentCategory && 'bg-gray-600' %> no-underline text-black">
+            <a href="/" class="<%= !locals.currentCategory && 'underline' %> no-underline text-last hover:underline ">
               All
             </a>
           </li>
@@ -18,19 +18,23 @@
             <%# add view of custom categories items %>
             <% if (category.custom) { %>
               <a 
-              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'underline' : '' %> no-underline text-last hover:underline" 
               href="/customCategory/<%= category.category_id %>"><%= category.category_name %></a>
             <% } else {%>
               <a 
-              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'underline' : '' %> no-underline text-last hover:underline" 
               href="/<%= category.category_name.toLowerCase() %>"><%= category.category_name %></a>
             <% } %>
           </li>
           <% }) %>
         </ul>
       </header>
-
       <div>
+        <hr class="m-0 border-last">
+        <hr class="m-0 border-last">
+      </div>
+      
+      <div class="overflow-auto">
         <%- include('itemsTable') %>
       </div>
     </main>

@@ -1,23 +1,23 @@
 <div class="w-full">
-  <table class="w-full">
+  <table class="w-full border-collapse">
     <caption>
       Items
     </caption>
     <tr>
-      <th class="text-left pb-1.5">Name</th>
-      <th class="text-right pb-1.5">Type</th>
-      <th class="text-right pb-1.5">Value</th>
+      <th class="text-left pb-6">Name</th>
+      <th class="text-right pb-2">Type</th>
+      <th class="text-right pb-2">Value</th>
       <% if (locals.isItems) { %> 
-       <th class="text-right pb-1.5">Actions</th>
+       <th class="text-right pb-2">Actions</th>
       <% } %>
     </tr>
     <% items.forEach(item => { %>
-     <tr id="<%= item.item_id %>">
-      <th class="text-left pb-1.5"><%= item.item_name %></th>
-      <th class="text-right pb-1.5"><%= item.category_name%></th>
-      <th class="text-right pb-1.5"><%= item.value %></th>
+     <tr id="<%= item.item_id %>" class="hover:bg-gradient-to-r from-[#4c4d4d0a] via-[#a4b4b100] to-[#e5e5cb] hover:from-[#b4c5bb00] hover:via-[#cad6c38f] hover:to-[#8d8d7e] p-4 rounded-lg">
+      <th class="text-left pb-2"><%= item.item_name %></th>
+      <th class="text-right pb-2"><%= item.category_name%></th>
+      <th class="text-right pb-2"><%= item.value %></th>
       <% if (locals.isItems) { %>
-       <th class="text-right pb-1.5">
+       <th class="text-right pb-2">
         <a href="/items/edit/<%= item.item_id %>">Edit</a>
         <a href="/items/delete/<%= item.item_id %>">Delete</a>
        </th>
