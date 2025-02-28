@@ -1,17 +1,17 @@
 <% if (locals.openNewForm) { %>
-  <form action="/items/new" method="post" class="flex flex-col p-4 gap-4 w-[20vw]">
+  <form action="/items/new" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
     <h1 class="text-center">New Item</h1>
     <div class="flex flex-col">
       <label for="itemName">Name<span class="text-red-900">*</span></label>
-      <input type="text" id="itemName" name="itemName" type="submit" class="p-2 text-lg">     
+      <input type="text" id="itemName" name="itemName" type="submit" class="p-2 text-lg sm:text-sm">     
     </div>
     <div class="flex flex-col">
       <label for="itemDesc">Short Description</label>
-      <textarea name="itemDesc" id="itemDesc" class="resize-none p-2 text-lg" type="submit"></textarea>
+      <textarea name="itemDesc" id="itemDesc" class="resize-none p-2 text-lg sm:text-sm" type="submit"></textarea>
     </div>
     <div class="flex flex-col">
       <label for="categories">Category</label>
-      <select name="categories" id="categories" class="p-2 text-lg">
+      <select name="categories" id="categories" class="p-2 text-lg sm:text-sm">
         <% if (locals.categories) { %>
         <% categories.forEach(category => { %>
           <option value="<%= category.category_id %>"><%= category.category_name %></option>
@@ -21,11 +21,11 @@
     </div>
     <div class="flex flex-col">
       <label for="itemQuantity">Quantity</label>
-      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" class="p-2 text-lg">
+      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" class="p-2 text-lg sm:text-sm">
     </div>
     <div class="flex flex-col">
       <label for="itemValue">Value<span class="text-red-900">*</span></label>
-      <input type="number" name="itemValue" id="itemValue" type="submit" class="p-2 text-lg">
+      <input type="number" name="itemValue" id="itemValue" type="submit" class="p-2 text-lg sm:text-sm">
     </div>
     <div class="flex flex-col">
       <p>Make it one of your favorites?<span class="text-red-900">*</span></p>
@@ -43,28 +43,28 @@
     </div>
     <div class="flex flex-col gap-4">
       <a href="/items" class="p-2 border text-center no-underline text-black bg-tertiary text-lg">Close</a>
-      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary">Submit</button>
+      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary mb-4">Submit</button>
     </div>
     <%- include('errors/newItemError') %>
   </form>
 <% } %>
 
 <% if (locals.openEditForm) { %>
-  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post" class="flex flex-col p-4 gap-4 w-[20vw]">
+  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
     <h1>Edit <%= itemToEdit.item_name %></h1>
     <div class="flex flex-col">
       <label for="itemName">Name</label>
-      <input type="text" id="itemName" name="itemName" type="submit" value="<%= itemToEdit.item_name %>" class="p-2 text-lg">     
+      <input type="text" id="itemName" name="itemName" type="submit" value="<%= itemToEdit.item_name %>" class="p-2 text-lg sm:text-sm">     
     </div>
     <div class="flex flex-col">
       <label for="itemDesc">Short Description</label>
-      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit" class="p-2 text-lg">
+      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit" class="p-2 text-lg sm:text-sm">
         <%= itemToEdit.description %>
       </textarea>
     </div>
     <div class="flex flex-col">
       <label for="categories">Category</label>
-      <select name="categories" id="categories" class="p-2 text-lg">
+      <select name="categories" id="categories" class="p-2 text-lg sm:text-sm">
         <% if (locals.categories) { %>
         <% categories.forEach(category => { %>
           <% if (category.category_id === itemToEdit.category_id) { %>
@@ -107,7 +107,7 @@
     </div>
     <div class="flex flex-col gap-4">
       <a href="/items" class="p-2 border text-center no-underline text-black bg-tertiary text-lg">Close</a>
-      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary">Submit</button>
+      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary mb-4">Submit</button>
     </div>
     <%- include('errors/editItemError') %>
   </form>

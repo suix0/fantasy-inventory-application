@@ -2,9 +2,9 @@
 <html lang="en">
 <%- include('partials/head') %>
 <body class="h-[100svh] m-0">
-  <div class="grid grid-cols-[1fr_2fr_2fr_1fr] h-full gap-4">
-    <main class="flex flex-col w-[650px] bg-secondary opacity-80 p-4 gap-4 colr-start-2 col-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
-      <div class="flex justify-between">
+  <div class="lg:grid lg:grid-cols-[1fr_2fr_2fr_1fr] md:grid md:grid-rows-[50px_1fr] lg:grid-rows-auto md:grid-cols-[1fr] h-full gap-4">
+    <main class="flex flex-col lg:w-[650px] md:w-[unset] md:mx-4 lg:mx-0 bg-secondary opacity-80 p-4 gap-4 lg:col-start-2 lg:col-end-3 md:row-start-2 lg:row-start-1 lg:row-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
+      <div class="flex justify-between flex-wrap gap-4">
         <form action="/items/search" method="get" class="flex gap-1">
           <input type="search" name="search" id="search" class=" bg-tertiary border-0 border-tertiary text-lg">
           <button type="submit" class="bg-primary text-last text-md hover:cursor-pointer">Search</button>
@@ -32,7 +32,7 @@
     </main>
     <%- include('partials/nav') %>
   </div>
-  <dialog class="bg-last text-primary">
+  <dialog class="bg-last text-primary overflow-auto">
     <% if (locals.openNewForm || locals.openEditForm) { %>
       <%- include('itemForms') %>
     <% } else if (locals.openDeleteDialog) {%>
@@ -40,7 +40,7 @@
         <p>Are you sure you want to delete item <span class="font-bold"><%= itemToDelete.item_name %></span>?</p>
         <div class="flex gap-2 justify-end">
           <a href="/items" class="p-2 flex items-center justify-center no-underline text-black bg-tertiary w-[100px]">Nevermind</a>
-          <form action="/items/delete/<%= itemToDelete.item_id %>" method="post" class=" bg-secondary text-base">
+          <form action="/items/delete/<%= itemToDelete.item_id %>" method="post" class="bg-secondary text-base">
             <button type="submit" class="p-2 cursor-pointer text-last bg-secondary w-[100px] text-base border-0">Yes</button>
           </form>
         </div>

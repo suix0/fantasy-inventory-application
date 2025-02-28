@@ -14,4 +14,7 @@ body {
   --color-secondary: #3c2a21;
   --color-tertiary: #d5cea3;
   --color-last: #e5e5cb;
+  --breakpoint-lg: 67rem;
+  --breakpoint-slg: 40rem;
+  --breakpoint-md: 21rem;
 }
