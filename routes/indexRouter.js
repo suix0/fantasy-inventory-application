@@ -4,6 +4,7 @@ const { Router } = require("express");
 const indexRouter = Router();
 
 indexRouter.get("/", indexController.getAllItems);
+indexRouter.get("/favorites", indexController.getFavoriteItems);
 indexRouter.get("/weapon", indexController.getWeapons);
 indexRouter.get("/armor", indexController.getArmors);
 indexRouter.get("/potions", indexController.getPotions);

@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('partials/head') %>
-<body>
-  <div>
+<body class="h-[100svh] m-0">
+  <div class="lg:grid lg:grid-cols-[1fr_2fr_2fr_1fr] md:grid md:grid-rows-[50px_1fr] lg:grid-rows-auto md:grid-cols-[1fr] h-full gap-4">  
     <!-- Home Main Content RPG-Like Inventory -->
-    <main class="flex flex-col w-[650px]">
-      <header>
-        <ul class="flex gap-4 m-0 p-0">
+    <main class="flex flex-col lg:w-[650px] md:w-[unset] md:mx-4 lg:mx-0 bg-secondary opacity-80 p-4 gap-4 lg:col-start-2 lg:col-end-3 md:row-start-2 lg:row-start-1 lg:row-end-3 border-l border-r relative left-0 right-0 top-0 bottom-0 border-primary text-last">
+      <header class="text-lg">
+        <ul class="flex flex-wrap gap-6 m-0 p-0">
           <li class="list-none">
-            <a href="/" class="<%= !locals.currentCategory && 'bg-gray-600' %> no-underline text-black">
+            <a href="/" class="text-last <%= locals.currentCategory === 'All' ? "underline" : "" %> no-underline text-last hover:underline">
               All
+            </a>
+          </li>
+          <li class="list-none  <%= locals.currentCategory === 'Favorites' ? "underline" : "" %> no-underline text-last hover:underline"">
+            <a href="/favorites" class="text-last no-underline">
+              Favorites
             </a>
           </li>
           </li>
@@ -18,25 +23,72 @@
             <%# add view of custom categories items %>
             <% if (category.custom) { %>
               <a 
-              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'underline' : '' %> no-underline text-last hover:underline" 
               href="/customCategory/<%= category.category_id %>"><%= category.category_name %></a>
             <% } else {%>
               <a 
-              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'bg-gray-600' : '' %> no-underline text-black" 
+              class="<%= locals.currentCategory && category.category_name === locals.currentCategory ? 'underline' : '' %> no-underline text-last hover:underline" 
               href="/<%= category.category_name.toLowerCase() %>"><%= category.category_name %></a>
             <% } %>
           </li>
           <% }) %>
         </ul>
       </header>
-
       <div>
+        <hr class="m-0 border-last">
+        <hr class="m-0 border-last">
+      </div>
+      
+      <div class="overflow-auto">
         <%- include('itemsTable') %>
       </div>
     </main>
 
     <!-- Header for navigating between Home, All Items, Categories -->
-    <%- include('partials/nav') %>
+     <div class="flex flex-col lg:gap-20 md:gap-40 lg:col-start-3 lg:col-end-4"> 
+       <%- include('partials/nav') %>
+       <section class=" invisible flex flex-col items-center justify-center bg-tertiary opacity-70 gap-4 p-4 rounded-md mx-4 relative">
+        <p id="displayName" class="text-3xl m-0"></p>
+        <p id="displayDesc" class="m-0"></p>
+        <p id="displayVal" class="m-0"></p>
+        <a id="closeModalBtn">
+          <img src="/close.svg" alt="Close item description" id="closeItemImg" class="w-6 absolute right-0 top-0">
+        </a>
+       </section>
+      </div>
   </div>
+  <script>
+     const section = document.querySelector("section");
+     const itemRows = document.querySelectorAll("[data-item='item']");
+     itemRows.forEach(item => {
+      item.addEventListener("click", (e) => {
+        const itemName = e.target.dataset.name;
+        const itemDescription = e.target.dataset.description;
+        const itemValue = e.target.dataset.value;
+
+        const displayName = document.querySelector("#displayName");
+        const displayDesc = document.querySelector("#displayDesc");
+        const displayVal = document.querySelector("#displayVal");
+
+
+        section.style.visibility = 'visible';
+        displayName.textContent = itemName;
+        displayDesc.textContent = itemDescription === '' ? "No description for this item defined." : itemDescription;
+        displayVal.textContent = `Item value: ${itemValue}`
+      })
+     })
+
+     const closeItemDesc = document.querySelector("#closeModalBtn");
+     const closeItemImg = document.querySelector("#closeItemImg")
+
+     const close = () => {
+      section.style.visibility = 'hidden';
+     }
+     
+     closeItemDesc.addEventListener("click", close);
+     closeItemImg.addEventListener("click", close);
+
+
+  </script>
 </body>
 </html>

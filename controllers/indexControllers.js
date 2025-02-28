@@ -4,7 +4,23 @@ const asyncHandler = require("express-async-handler");
 exports.getAllItems = asyncHandler(async (req, res) => {
   const items = await db.getItems();
   const categories = await db.getCategories();
-  res.render("index", { items: items, categories: categories, title: "Home" });
+  res.render("index", {
+    items: items,
+    categories: categories,
+    title: "RPG Inventory",
+    currentCategory: "All",
+  });
+});
+
+exports.getFavoriteItems = asyncHandler(async (req, res) => {
+  const favoriteItems = await db.getFavoriteItems();
+  const categories = await db.getCategories();
+  res.render("index", {
+    items: favoriteItems,
+    categories: categories,
+    title: "Favorites",
+    currentCategory: "Favorites",
+  });
 });
 
 exports.getWeapons = asyncHandler(async (req, res) => {

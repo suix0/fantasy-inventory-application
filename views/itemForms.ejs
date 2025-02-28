@@ -1,17 +1,17 @@
 <% if (locals.openNewForm) { %>
-  <form action="/items/new" method="post">
-    <h1>New Item</h1>
-    <div>
-      <label for="itemName">Name</label>
-      <input type="text" id="itemName" name="itemName" type="submit">     
+  <form action="/items/new" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
+    <h1 class="text-center">New Item</h1>
+    <div class="flex flex-col">
+      <label for="itemName">Name<span class="text-red-900">*</span></label>
+      <input type="text" id="itemName" name="itemName" type="submit" class="p-2 text-lg sm:text-sm">     
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="itemDesc">Short Description</label>
-      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit"></textarea>
+      <textarea name="itemDesc" id="itemDesc" class="resize-none p-2 text-lg sm:text-sm" type="submit"></textarea>
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="categories">Category</label>
-      <select name="categories" id="categories">
+      <select name="categories" id="categories" class="p-2 text-lg sm:text-sm">
         <% if (locals.categories) { %>
         <% categories.forEach(category => { %>
           <option value="<%= category.category_id %>"><%= category.category_name %></option>
@@ -19,46 +19,52 @@
         <% } %>
       </select>
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="itemQuantity">Quantity</label>
-      <input type="number" name="itemQuantity" id="itemQuantity" type="submit">
+      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" class="p-2 text-lg sm:text-sm">
     </div>
-    <div>
-      <label for="itemValue">Value</label>
-      <input type="number" name="itemValue" id="itemValue" type="submit">
+    <div class="flex flex-col">
+      <label for="itemValue">Value<span class="text-red-900">*</span></label>
+      <input type="number" name="itemValue" id="itemValue" type="submit" class="p-2 text-lg sm:text-sm">
     </div>
-    <div>
-      <p>Make it one of your favorites</p>
-      <input type="radio" name="isFavorite" id="true" value="true" type="submit">
-      <label for="true">Yea</label>
+    <div class="flex flex-col">
+      <p>Make it one of your favorites?<span class="text-red-900">*</span></p>
+      <div class="flex justify-around">
+        <div>
+          <input type="radio" name="isFavorite" id="true" value="true" type="submit">
+          <label for="true">Yea</label>
+        </div>
 
-      <input type="radio" name="isFavorite" id="false" value="false" type="submit">
-      <label for="false">Nay</label>
+        <div>
+          <input type="radio" name="isFavorite" id="false" value="false" type="submit">
+          <label for="false">Nay</label>
+        </div>
+      </div>
     </div>
-    <div>
-      <a href="/items">Close</a>
-      <button type="submit">Submit</button>
+    <div class="flex flex-col gap-4">
+      <a href="/items" class="p-2 border text-center no-underline text-black bg-tertiary text-lg">Close</a>
+      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary mb-4">Submit</button>
     </div>
     <%- include('errors/newItemError') %>
   </form>
 <% } %>
 
 <% if (locals.openEditForm) { %>
-  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post">
+  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
     <h1>Edit <%= itemToEdit.item_name %></h1>
-    <div>
+    <div class="flex flex-col">
       <label for="itemName">Name</label>
-      <input type="text" id="itemName" name="itemName" type="submit" value="<%= itemToEdit.item_name %>">     
+      <input type="text" id="itemName" name="itemName" type="submit" value="<%= itemToEdit.item_name %>" class="p-2 text-lg sm:text-sm">     
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="itemDesc">Short Description</label>
-      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit">
+      <textarea name="itemDesc" id="itemDesc" class="resize-none" type="submit" class="p-2 text-lg sm:text-sm">
         <%= itemToEdit.description %>
       </textarea>
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="categories">Category</label>
-      <select name="categories" id="categories">
+      <select name="categories" id="categories" class="p-2 text-lg sm:text-sm">
         <% if (locals.categories) { %>
         <% categories.forEach(category => { %>
           <% if (category.category_id === itemToEdit.category_id) { %>
@@ -70,33 +76,38 @@
         <% } %>
       </select>
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="itemQuantity">Quantity</label>
-      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" value="<%= itemToEdit.quantity %>">
+      <input type="number" name="itemQuantity" id="itemQuantity" type="submit" value="<%= itemToEdit.quantity %>" class="p-2 text-lg">
     </div>
-    <div>
+    <div class="flex flex-col">
       <label for="itemValue">Value</label>
-      <input type="number" name="itemValue" id="itemValue" type="submit" value="<%= itemToEdit.value %>">
+      <input type="number" name="itemValue" id="itemValue" type="submit" value="<%= itemToEdit.value %>" class="p-2 text-lg">
     </div>
-    <div>
+    <div class="flex flex-col">
       <p>Make it one of your favorites</p>
-      <% if (itemToEdit.is_favorite === true) { %>
-        <input type="radio" name="isFavorite" id="true" value="true" type="submit" checked>
-      <% } else { %>
-        <input type="radio" name="isFavorite" id="true" value="true" type="submit">
-      <% } %>
-      <label for="true">Yea</label>
-
-      <% if (itemToEdit.is_favorite === false) { %>
-        <input type="radio" name="isFavorite" id="false" value="false" type="submit" checked>
-      <% } else {%>
-        <input type="radio" name="isFavorite" id="false" value="false" type="submit">
-      <% } %>
-      <label for="false">Nay</label>
+      <div class="flex justify-around">
+        <div>
+        <% if (itemToEdit.is_favorite === true) { %>
+            <input type="radio" name="isFavorite" id="true" value="true" type="submit" checked>
+          <% } else { %>
+            <input type="radio" name="isFavorite" id="true" value="true" type="submit">
+            <% } %>
+            <label for="true">Yea</label>
+        </div>
+        <div>
+          <% if (itemToEdit.is_favorite === false) { %>
+            <input type="radio" name="isFavorite" id="false" value="false" type="submit" checked>
+          <% } else {%>
+            <input type="radio" name="isFavorite" id="false" value="false" type="submit">
+          <% } %>
+            <label label for="false">Nay</label>
+          </div>
+        </div>
     </div>
-    <div>
-      <a href="/items">Close</a>
-      <button type="submit">Submit</button>
+    <div class="flex flex-col gap-4">
+      <a href="/items" class="p-2 border text-center no-underline text-black bg-tertiary text-lg">Close</a>
+      <button type="submit" class="p-2 border cursor-pointer text-lg text-last bg-secondary mb-4">Submit</button>
     </div>
     <%- include('errors/editItemError') %>
   </form>
