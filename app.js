@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res
-    .status(err.statusCode)
+    .status(err.statusCode || 500)
     .render("errorPage", { errCode: err.statusCode, message: err.message });
 });
 const PORT = process.env.PORT;
