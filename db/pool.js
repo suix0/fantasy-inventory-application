@@ -6,4 +6,7 @@ module.exports = new Pool({
   database: process.env.DATABASE,
   password: process.env.DATABASE_PASSWORD,
   port: process.env.DATABASE_PORT,
+  ssl: {
+    require: true,
+  },
 });
