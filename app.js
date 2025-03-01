@@ -16,7 +16,7 @@ app.use("/items", itemsRouter);
 app.use("/categories", categoriesRouter);
 
 app.use((req, res, next) => {
-  res.render("errorPage");
+  res.status(404).render("errorPage");
 });
 
 app.use((err, req, res, next) => {
