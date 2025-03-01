@@ -4,21 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Not found!</title>
+  <link rel="stylesheet" href="/styles/output.css">
 </head>
-<body>
-  <main>
+<body class="h-[100svh] flex justify-center items-center">
+  <main class="bg-secondary p-10 flex flex-col gap-2 rounded-lg items-center">
     <% if (locals.errCode) { %>
-      <p><%= errCode %> Error</p>
+      <p class="text-[150px] text-last m-0"><%= errCode %></p>
     <% } else { %>
-      <p>404 Error</p>
+      <p class="text-[150px] text-last m-0">404</p>
     <% } %>
 
     <% if (locals.message) { %>
-     <p><%= message %></p>
+     <p class="text-lg text-last"><%= message %></p>
     <% } else { %>
-    <p>It seems like you are lost!</p>
+    <p class="text-lg text-last">It seems like you are lost!</p>
     <% } %>
-    <a href="/">Home</a>
+    <a href="/" class="p-2 border bg-last rounded-md no-underline text-primary">Return home</a>
   </main>
 </body>
 </html>

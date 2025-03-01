@@ -1,5 +1,5 @@
 <% if (locals.openNewForm) { %>
-  <form action="/items/new" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
+  <form action="/items/new" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] lg:w-[20vw] xl:h-auto md:h-[60vh] md:text-sm">
     <h1 class="text-center">New Item</h1>
     <div class="flex flex-col">
       <label for="itemName">Name<span class="text-red-900">*</span></label>
@@ -50,7 +50,7 @@
 <% } %>
 
 <% if (locals.openEditForm) { %>
-  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] md:text-sm">
+  <form action="/items/edit/<%= itemToEdit.item_id %>" method="post" class="flex flex-col p-4 gap-4 md:w-[80vw] xl:h-auto md:h-[60vh] lg:w-[20vw] md:text-sm">
     <h1>Edit <%= itemToEdit.item_name %></h1>
     <div class="flex flex-col">
       <label for="itemName">Name</label>

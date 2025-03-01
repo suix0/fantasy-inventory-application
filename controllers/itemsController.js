@@ -22,8 +22,8 @@ const itemValidation = [
     .withMessage("Item name must be between 1 and 25 characters."),
   body("itemDesc")
     .trim()
-    .isLength({ max: 35 })
-    .withMessage("Item description can only have up to 35 characters."),
+    .isLength({ max: 80 })
+    .withMessage("Item description can only have up to 80 characters."),
   body("itemValue").notEmpty().withMessage("Item value can't be empty."),
   body("isFavorite")
     .notEmpty()

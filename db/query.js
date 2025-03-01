@@ -119,7 +119,7 @@ exports.postNewItem = async (newItem) => {
     Number(newItem.categories),
     Number(newItem.itemQuantity),
     Number(newItem.itemValue),
-    Boolean(newItem.isFavorite),
+    newItem.isFavorite === "true",
   ];
   await pool.query(query, paramArr);
 };
@@ -136,7 +136,7 @@ exports.postEditItem = async (editItem, itemId) => {
     Number(editItem.categories),
     Number(editItem.itemQuantity),
     Number(editItem.itemValue),
-    Boolean(editItem.isFavorite),
+    editItem.isFavorite === "true",
     itemId,
   ];
   await pool.query(query, paramArr);

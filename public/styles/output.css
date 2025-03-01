@@ -17,6 +17,10 @@
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-9xl: 8rem;
+    --text-9xl--line-height: 1;
     --font-weight-bold: 700;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -40,9 +44,6 @@
   }
   .absolute {
     position: absolute;
-  }
-  .fixed {
-    position: fixed;
   }
   .relative {
     position: relative;
@@ -254,6 +255,9 @@
   .p-4 {
     padding: calc(var(--spacing) * 4);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
   }
@@ -277,6 +281,14 @@
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-9xl {
+    font-size: var(--text-9xl);
+    line-height: var(--tw-leading, var(--text-9xl--line-height));
+  }
   .text-base {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
@@ -284,6 +296,12 @@
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+  .text-\[100px\] {
+    font-size: 100px;
+  }
+  .text-\[150px\] {
+    font-size: 150px;
   }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
@@ -449,19 +467,9 @@
       gap: calc(var(--spacing) * 40);
     }
   }
-  .md\:pb-4 {
-    @media (width >= 21rem) {
-      padding-bottom: calc(var(--spacing) * 4);
-    }
-  }
   .md\:pb-6 {
     @media (width >= 21rem) {
       padding-bottom: calc(var(--spacing) * 6);
-    }
-  }
-  .md\:pb-8 {
-    @media (width >= 21rem) {
-      padding-bottom: calc(var(--spacing) * 8);
     }
   }
   .md\:text-sm {
@@ -525,6 +533,21 @@
   .lg\:grid {
     @media (width >= 67rem) {
       display: grid;
+    }
+  }
+  .lg\:w-\[20vw\] {
+    @media (width >= 67rem) {
+      width: 20vw;
+    }
+  }
+  .lg\:w-\[30vw\] {
+    @media (width >= 67rem) {
+      width: 30vw;
+    }
+  }
+  .lg\:w-\[40vw\] {
+    @media (width >= 67rem) {
+      width: 40vw;
     }
   }
   .lg\:w-\[650px\] {
